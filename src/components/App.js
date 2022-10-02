@@ -4,8 +4,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import TokenContext from "../contexts/TokenContext";
 
 import NewSpecie from "./NewSpecie";
+import SignIn from "./SignIn";
 
-async function App() {
+function App() {
   let tokenStorage = localStorage.getItem("token");
 
   if (tokenStorage !== null) {
@@ -18,6 +19,7 @@ async function App() {
     <TokenContext.Provider value={{ token, setToken }}>
       <BrowserRouter>
         <Routes>
+          <Route path="/login" element={<SignIn />} />
           <Route path="/new-specie" element={<NewSpecie />} />
         </Routes>
       </BrowserRouter>
