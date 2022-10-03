@@ -14,11 +14,10 @@ export default function NewSpecie() {
 
   const [specie, setSpecie] = useState({});
 
-  console.log(specie);
-
   async function handleSubmit(e) {
     e.preventDefault();
 
+    console.log(specie);
     try {
       await axios.post(`${backUrl}/specie`, { ...specie }, config);
     } catch (error) {}
@@ -26,7 +25,7 @@ export default function NewSpecie() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
+      <form id="form" onSubmit={handleSubmit} encType="multipart/form-data">
         <label htmlFor="cientific-name">Nome científico:</label>
         <input
           id="cientific-name"
@@ -64,9 +63,8 @@ export default function NewSpecie() {
           id="leaf-pic"
           name="leaf-pic"
           type="file"
-          capture="true"
           onChange={(e) =>
-            setSpecie({ ...specie, leafPicturePath: e.target.value })
+            setSpecie({ ...specie, leafPicture: e.target.files[0] })
           }
         ></input>
         <br />
@@ -86,7 +84,7 @@ export default function NewSpecie() {
           name="flower-pic"
           type="file"
           onChange={(e) =>
-            setSpecie({ ...specie, flowerPicturePath: e.target.value })
+            setSpecie({ ...specie, flowerPicture: e.target.files[0] })
           }
         ></input>
         <br />
@@ -106,7 +104,7 @@ export default function NewSpecie() {
           name="fruit-pic"
           type="file"
           onChange={(e) =>
-            setSpecie({ ...specie, fruitPicturePath: e.target.value })
+            setSpecie({ ...specie, fruitPicture: e.target.files[0] })
           }
         ></input>
         <br />
@@ -128,7 +126,7 @@ export default function NewSpecie() {
           name="underground-pic"
           type="file"
           onChange={(e) =>
-            setSpecie({ ...specie, undergroundPicturePath: e.target.value })
+            setSpecie({ ...specie, undergroundPicture: e.target.files[0] })
           }
         ></input>
         <br />
