@@ -81,13 +81,16 @@ const Container = styled.div`
     align-items: center;
 
     input {
-      width: 50%;
-      height: 40px;
-      margin-bottom: 15px;
-      padding-left: 10px;
+      border: 2px solid #5e053d;
       border-radius: 7px;
       outline: none;
-      border: 2px solid #5e053d;
+
+      font-size: 15px;
+
+      width: 70%;
+      height: 50px;
+      margin-bottom: 15px;
+      padding-left: 10px;
     }
 
     button {
@@ -97,10 +100,11 @@ const Container = styled.div`
       border: none;
 
       color: #ffffff;
-      font-weight: 600;
+      font-size: 16px;
+      font-weight: 400;
 
-      width: 15%;
-      height: 35px;
+      width: 20%;
+      height: 40px;
       margin-top: 20px;
 
       cursor: ${({ loading }) => (loading ? "initial" : "pointer")};
@@ -109,7 +113,7 @@ const Container = styled.div`
     h3 {
       color: #ffffff;
       font-size: 13px;
-      font-weight: 500;
+      font-weight: 400;
 
       margin-top: 20px;
 
