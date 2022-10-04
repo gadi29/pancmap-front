@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import TokenContext from "../contexts/TokenContext";
+import Header from "./Header";
 
 import NewSpecie from "./NewSpecie";
 import SignIn from "./SignIn";
@@ -18,6 +19,7 @@ function App() {
   return (
     <TokenContext.Provider value={{ token, setToken }}>
       <BrowserRouter>
+        <Header />
         <Routes>
           <Route path="/login" element={<SignIn />} />
           <Route path="/new-specie" element={<NewSpecie />} />

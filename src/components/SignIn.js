@@ -71,7 +71,7 @@ const Body = styled.div`
 
 const Container = styled.div`
   width: 100%;
-  margin-top: 70px;
+  margin-top: 80px;
 
   form {
     width: 100%;
