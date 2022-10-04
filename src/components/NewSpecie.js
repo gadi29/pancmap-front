@@ -1,31 +1,21 @@
 import { useContext, useState } from "react";
-import axios from "axios";
 
 import TokenContext from "../contexts/TokenContext";
 import { backUrl } from "../utils/constants";
 
 export default function NewSpecie() {
   const { token } = useContext(TokenContext);
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
 
   const [specie, setSpecie] = useState({});
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-
-    console.log(specie);
-    try {
-      await axios.post(`${backUrl}/specie`, { ...specie }, config);
-    } catch (error) {}
-  }
-
   return (
     <div>
-      <form id="form" onSubmit={handleSubmit} encType="multipart/form-data">
+      <form
+        id="form"
+        action={`${backUrl}/specie`}
+        method="post"
+        encType="multipart/form-data"
+      >
         <label htmlFor="cientific-name">Nome científico:</label>
         <input
           id="cientific-name"
