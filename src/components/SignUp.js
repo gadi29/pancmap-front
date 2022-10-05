@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import { backUrl } from "../utils/constants";
 
-export default function Register() {
+export default function SignUp() {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
