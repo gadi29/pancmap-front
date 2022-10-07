@@ -106,6 +106,7 @@ const Container = styled.div`
       width: 20%;
       height: 40px;
       margin-top: 20px;
+      margin-bottom: 35px;
 
       cursor: ${({ loading }) => (loading ? "initial" : "pointer")};
     }
