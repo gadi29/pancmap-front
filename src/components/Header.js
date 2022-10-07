@@ -1,15 +1,12 @@
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Header() {
-  const navigate = useNavigate();
-
   return (
     <Top>
       <div></div>
       <h1>Panc Map</h1>
       <div>
-        <h2 onClick={navigate("/login")}>Login</h2>
+        <h2>Login</h2>
       </div>
     </Top>
   );

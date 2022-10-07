@@ -6,7 +6,12 @@ import styled from "styled-components";
 import { backUrl } from "../utils/constants";
 
 export default function SignUp() {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -57,16 +62,16 @@ export default function SignUp() {
           />
           <input
             type="password"
-            value={user.password}
-            onChange={(e) => setUser({ ...user, password: e.target.value })}
+            value={user.confirmPassword}
+            onChange={(e) =>
+              setUser({ ...user, confirmPassword: e.target.value })
+            }
             placeholder="Confirme a senha"
             disabled={loading}
             required
           />
           <button type="submit">{loading ? "Carregando..." : "Entrar"}</button>
-          <h3 onClick={navigate("/login")}>
-            Já está cadastrado? Clique aqui e faça seu login!
-          </h3>
+          <h3>Já está cadastrado? Clique aqui e faça seu login!</h3>
         </form>
       </Container>
     </Body>
