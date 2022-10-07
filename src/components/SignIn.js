@@ -17,11 +17,13 @@ export default function SignIn() {
 
     setLoading(true);
     try {
-      const { data: token } = await axios.post(`${backUrl}/signin`, {
+      const { data } = await axios.post(`${backUrl}/signin`, {
         ...user,
       });
-      localStorage.setItem("token", JSON.stringify(token));
-      setToken(token);
+      localStorage.setItem("token", JSON.stringify(data.token));
+      setToken(data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+      setUser(data.user);
       setLoading(false);
       navigate("/main");
     } catch (error) {

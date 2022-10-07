@@ -1,11 +1,18 @@
 import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import TokenContext from "../contexts/TokenContext";
+import UserContext from "../contexts/UserContext";
 import { backUrl } from "../utils/constants";
 
 export default function NewSpecie() {
-  const { token } = useContext(TokenContext);
+  const { user } = useContext(UserContext);
+
+  const navigate = useNavigate();
+
+  if (!user.superuser) {
+    navigate("/");
+  }
 
   const [specie, setSpecie] = useState({});
 
