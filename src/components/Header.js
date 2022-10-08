@@ -30,7 +30,7 @@ export default function Header() {
       <div>
         {user.name !== "Visitante" ? (
           <>
-            <h2>Novo registro</h2>
+            <h2 onClick={() => navigate("/new-register")}>Novo registro</h2>
             <h2 onClick={handleSignout}>Sair</h2>
           </>
         ) : (
