@@ -88,7 +88,7 @@ const Container = styled.div`
       border-radius: 7px;
       outline: none;
 
-      font-size: 15px;
+      font-size: 16px;
 
       width: 70%;
       height: 50px;
@@ -103,11 +103,11 @@ const Container = styled.div`
       border: none;
 
       color: #ffffff;
-      font-size: 16px;
-      font-weight: 400;
+      font-size: 18px;
+      font-weight: 600;
 
       width: 20%;
-      height: 40px;
+      height: 50px;
       margin-top: 20px;
       margin-bottom: 35px;
 
@@ -116,7 +116,7 @@ const Container = styled.div`
 
     h3 {
       color: #ffffff;
-      font-size: 13px;
+      font-size: 15px;
       font-weight: 400;
 
       margin-top: 20px;
