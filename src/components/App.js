@@ -6,6 +6,7 @@ import UserContext from "../contexts/UserContext";
 import EditSpecie from "./EditSpecie";
 import Header from "./Header";
 import ListSpecies from "./ListSpecies";
+import NewRegister from "./NewRegister";
 
 import NewSpecie from "./NewSpecie";
 import SignIn from "./SignIn";
@@ -43,6 +44,7 @@ function App() {
             <Route path="/species" element={<ListSpecies />} />
             <Route path="/specie/:specieId" element={<SpeciePage />} />
             <Route path="/edit-specie/:specieId" element={<EditSpecie />} />
+            <Route path="/new-register" element={<NewRegister />} />
           </Routes>
         </BrowserRouter>
       </TokenContext.Provider>

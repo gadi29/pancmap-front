@@ -77,7 +77,7 @@ export default function EditSpecie() {
       setLoading(false);
       navigate(`/specie/${specieId}`);
     } catch (error) {
-      alert("Campo obrigatório não preenchido");
+      alert("Campo obrigatório não preenchido, ou preenchido incorretamente");
       setLoading(false);
     }
   }
