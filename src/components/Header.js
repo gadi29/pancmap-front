@@ -30,7 +30,7 @@ const Top = styled.div`
 
   h1 {
     font-size: 45px;
-    font-family: "Rubik Dirt", cursive;
+    font-family: "Rubik Dirt", cursive !important;
   }
 
   h2 {
