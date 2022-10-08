@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import TokenContext from "../contexts/TokenContext";
 import UserContext from "../contexts/UserContext";
+import EditRegister from "./EditRegister";
 import EditSpecie from "./EditSpecie";
 import Header from "./Header";
 import ListSpecies from "./ListSpecies";
@@ -47,6 +48,10 @@ function App() {
             <Route path="/edit-specie/:specieId" element={<EditSpecie />} />
             <Route path="/new-register" element={<NewRegister />} />
             <Route path="/user-registers" element={<UserRegisters />} />
+            <Route
+              path="/edit-register/:registerId"
+              element={<EditRegister />}
+            />
           </Routes>
         </BrowserRouter>
       </TokenContext.Provider>
