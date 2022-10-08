@@ -60,17 +60,20 @@ export default function EditSpecie() {
 
     setLoading(true);
     try {
-      setSpecie({
-        cientificName: specie.cientificName,
-        generalCharacteristics: specie.generalCharacteristics,
-        curiosities: specie.curiosities,
-        leafMorfology: specie.leafMorfology,
-        flowerMorfology: specie.flowerMorfology,
-        fruitMorfology: specie.fruitMorfology,
-        undergroundMorfology: specie.undergroundMorfology,
-        edibleParts: specie.edibleParts,
-      });
-      await axios.put(`${backUrl}/specie/${specieId}`, { ...specie }, config);
+      await axios.put(
+        `${backUrl}/specie/${specieId}`,
+        {
+          cientificName: specie.cientificName,
+          generalCharacteristics: specie.generalCharacteristics,
+          curiosities: specie.curiosities,
+          leafMorfology: specie.leafMorfology,
+          flowerMorfology: specie.flowerMorfology,
+          fruitMorfology: specie.fruitMorfology,
+          undergroundMorfology: specie.undergroundMorfology,
+          edibleParts: specie.edibleParts,
+        },
+        config
+      );
       setLoading(false);
       navigate(`/specie/${specieId}`);
     } catch (error) {

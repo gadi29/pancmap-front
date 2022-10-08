@@ -25,12 +25,6 @@ function ListLoaded(
     },
   };
 
-  function handleEdit(specieId) {
-    const response = axios.put(`${backUrl}/specie/${specieId}`, config);
-
-    //edit specie
-  }
-
   function handleDelete(specieId) {
     if (window.confirm("Tem certeza que deseja apagar esta espécie?")) {
       setLoading(true);
@@ -61,7 +55,7 @@ function ListLoaded(
           {superuser ? (
             <div className="icons">
               <AiFillEdit
-                onClick={() => handleEdit(specie.id)}
+                onClick={() => navigate(`/edit-specie/${specie.id}`)}
                 size={25}
                 style={{ cursor: "pointer" }}
               />
