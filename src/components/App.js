@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import TokenContext from "../contexts/TokenContext";
 import UserContext from "../contexts/UserContext";
 import Header from "./Header";
+import ListSpecies from "./ListSpecies";
 
 import NewSpecie from "./NewSpecie";
 import SignIn from "./SignIn";
@@ -36,6 +37,7 @@ function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<SignIn />} />
             <Route path="/new-specie" element={<NewSpecie />} />
+            <Route path="/species" element={<ListSpecies />} />
             <Route path="/specie/:specieId" element={<SpeciePage />} />
           </Routes>
         </BrowserRouter>

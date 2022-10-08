@@ -188,6 +188,7 @@ const Left = styled.div`
 
   .image-morfology {
     background-color: #ffffff;
+    border-radius: 20px;
     border: 5px solid #7b1254;
 
     margin-bottom: 30px;
@@ -198,6 +199,7 @@ const Left = styled.div`
     align-items: center;
 
     img {
+      border-radius: 5px;
       width: 95%;
       margin-bottom: 15px;
     }
@@ -213,13 +215,16 @@ const Right = styled.div`
   width: 50%;
 
   div {
+    background-color: #ffffff;
+    border: 5px solid #7b1254;
+    border-radius: 20px;
+
     margin-bottom: 30px;
+    padding: 20px 5px;
+
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #ffffff;
-    border: 5px solid #7b1254;
-    padding: 20px 5px;
   }
 
   @media screen and (max-width: 768px) {
