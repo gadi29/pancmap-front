@@ -8,6 +8,7 @@ import Header from "./Header";
 import NewSpecie from "./NewSpecie";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
+import SpeciePage from "./SpeciePage";
 
 function App() {
   let tokenStorage = localStorage.getItem("token");
@@ -35,6 +36,7 @@ function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<SignIn />} />
             <Route path="/new-specie" element={<NewSpecie />} />
+            <Route path="/specie/:specieId" element={<SpeciePage />} />
           </Routes>
         </BrowserRouter>
       </TokenContext.Provider>
