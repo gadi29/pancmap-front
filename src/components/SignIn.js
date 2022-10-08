@@ -69,6 +69,7 @@ const Body = styled.div`
 
   width: 100%;
   min-height: 100vh;
+  position: absolute;
 `;
 
 const Container = styled.div`
