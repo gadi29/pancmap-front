@@ -119,6 +119,13 @@ export default function ListSpecies() {
             )
           )}
         </Lista>
+        {user.superuser ? (
+          <button onClick={() => navigate("/new-specie")}>
+            Cadastrar nova espécie
+          </button>
+        ) : (
+          <></>
+        )}
       </Container>
     </Body>
   );
@@ -150,6 +157,24 @@ const Container = styled.div`
     font-size: 25px;
     font-weight: 600;
     margin-bottom: 13px;
+  }
+
+  button {
+    background-color: #a82b7a;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 600;
+
+    width: 20%;
+    height: 50px;
+    margin-top: 20px;
+    margin-bottom: 35px;
+
+    cursor: pointer;
   }
 `;
 
