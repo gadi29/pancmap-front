@@ -8,6 +8,19 @@ export default function Header() {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
 
+  function handleSignout(e) {
+    e.preventDefault();
+
+    if (window.confirm("Você realmente deseja se deslogar do sistema?")) {
+      localStorage.removeItem("token");
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ name: "Visitante", superuser: false })
+      );
+      window.location.reload();
+    }
+  }
+
   return (
     <Top>
       <h1>Panc Map</h1>
@@ -18,7 +31,7 @@ export default function Header() {
         {user.name !== "Visitante" ? (
           <>
             <h2>Novo registro</h2>
-            <h2>Sair</h2>
+            <h2 onClick={handleSignout}>Sair</h2>
           </>
         ) : (
           <>
@@ -50,15 +63,16 @@ const Top = styled.div`
   h1 {
     font-size: 45px;
     font-family: "Rubik Dirt", cursive !important;
-    position: absolute;
+    position: fixed;
     top: 15px;
-    left: 43%;
+    left: 42%;
   }
 
   div {
     display: flex;
 
     h2 {
+      font-size: 18px;
       margin-left: 15px;
       cursor: pointer;
     }

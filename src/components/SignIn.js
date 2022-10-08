@@ -26,6 +26,7 @@ export default function SignIn() {
       setUser(data.user);
       setLoading(false);
       navigate("/main");
+      window.location.reload();
     } catch (error) {
       alert("E-mail ou senha incorretos!");
       setLoading(false);

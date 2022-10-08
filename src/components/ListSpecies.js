@@ -96,7 +96,7 @@ export default function ListSpecies() {
         alert(`Erro ${e.response.status}`);
         setLoading(false);
       });
-  }, [state]);
+  }, [state, user]);
 
   return (
     <Body>
