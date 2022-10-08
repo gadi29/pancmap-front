@@ -25,6 +25,8 @@ function App() {
 
   if (userStorage !== null) {
     userStorage = JSON.parse(userStorage);
+  } else {
+    userStorage = { name: "Visitante", superuser: false };
   }
 
   const [user, setUser] = useState(userStorage);

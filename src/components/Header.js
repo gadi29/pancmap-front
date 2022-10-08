@@ -1,12 +1,27 @@
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
+import UserContext from "../contexts/UserContext";
+
 export default function Header() {
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+
   return (
     <Top>
-      <div></div>
       <h1>Panc Map</h1>
+      <div></div>
+
       <div>
-        <h2>Login</h2>
+        {user.name !== "Visitante" ? (
+          <></>
+        ) : (
+          <>
+            <h2 onClick={() => navigate("/login")}>Login</h2>
+            <h2 onClick={() => navigate("/signup")}>Cadastre-se</h2>
+          </>
+        )}
       </div>
     </Top>
   );
@@ -31,9 +46,17 @@ const Top = styled.div`
   h1 {
     font-size: 45px;
     font-family: "Rubik Dirt", cursive !important;
+    position: absolute;
+    top: 15px;
+    left: 43%;
   }
 
-  h2 {
-    cursor: pointer;
+  div {
+    display: flex;
+
+    h2 {
+      margin-left: 15px;
+      cursor: pointer;
+    }
   }
 `;
