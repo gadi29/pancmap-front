@@ -71,7 +71,9 @@ export default function SignUp() {
             required
           />
           <button type="submit">{loading ? "Carregando..." : "Entrar"}</button>
-          <h3>Já está cadastrado? Clique aqui e faça seu login!</h3>
+          <h3 onClick={() => navigate("/login")}>
+            Já está cadastrado? Clique aqui e faça seu login!
+          </h3>
         </form>
       </Container>
     </Body>
