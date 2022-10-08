@@ -7,9 +7,27 @@ import { backUrl } from "../utils/constants";
 
 function SpeciePageLoaded(specie) {
   return (
-    <>
-      <h2>{specie.cientificName}</h2>
-    </>
+    <Main>
+      <h2>Nome científico: {specie.cientificName}</h2>
+      <h3>Características gerais: {specie.generalCharacteristics}</h3>
+      {specie.curiosities ? <h3>Curiosidades: {specie.curiosities}</h3> : <></>}
+      <h3>Morfologia da folha: {specie.leafMorfology}</h3>
+      <img src={`${backUrl}${specie.leafPicturePath}`} alt="Folha" />
+      <h3>Morfologia da flor: {specie.flowerMorfology}</h3>
+      <img src={`${backUrl}${specie.flowerPicturePath}`} alt="Flor" />
+      <h3>Morfologia do fruto: {specie.fruitMorfology}</h3>
+      <img src={`${backUrl}${specie.fruitPicturePath}`} alt="Fruto" />
+      <h3>Morfologia do órgão subterrâneo: {specie.undergroundMorfology}</h3>
+      {specie.undergroundPicturePath ? (
+        <img
+          src={`${backUrl}${specie.undergroundPicturePath}`}
+          alt="Órgão subterrâneo"
+        />
+      ) : (
+        <></>
+      )}
+      <h3>Partes comestíveis: {specie.edibleParts}</h3>
+    </Main>
   );
 }
 
@@ -56,10 +74,21 @@ const Body = styled.div`
 const Container = styled.div`
   width: 100%;
   margin-top: 80px;
-  height: 80vh;
+  height: ${({ loading }) => (loading ? "80vh" : "100%")};
 
   display: flex;
+  justify-content: ${({ loading }) => (loading ? "center" : "initial")};
+  align-items: ${({ loading }) => (loading ? "center" : "initial")};
+`;
+
+const Main = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  //cursor: ${({ loading }) => (loading ? "initial" : "pointer")};
+
+  img {
+    width: 500px;
+  }
 `;
