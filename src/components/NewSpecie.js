@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -10,11 +10,11 @@ export default function NewSpecie() {
 
   const navigate = useNavigate();
 
-  if (!user.superuser) {
-    navigate("/");
-  }
-
-  const [specie, setSpecie] = useState({});
+  useEffect(() => {
+    if (!user.superuser) {
+      navigate("/");
+    }
+  }, [user]);
 
   return (
     <Body>
@@ -30,100 +30,77 @@ export default function NewSpecie() {
             name="cientific-name"
             type="text"
             placeholder="Nome científico"
-            onChange={(e) =>
-              setSpecie({ ...specie, cientificName: e.target.value })
-            }
           ></input>
           <input
-            id="general-characteristicse"
+            id="general-characteristics"
             name="general-characteristics"
             type="text"
             placeholder="Características gerais da espécie"
-            onChange={(e) =>
-              setSpecie({ ...specie, generalCharacteristics: e.target.value })
-            }
+          ></input>
+          <input
+            id="curiosities"
+            name="curiosities"
+            type="text"
+            placeholder="Curiosidades"
           ></input>
           <input
             id="leaf-morfology"
             name="leaf-morfology"
             type="text"
             placeholder="Morfologia da folha"
-            onChange={(e) =>
-              setSpecie({ ...specie, leafMorfology: e.target.value })
-            }
-          ></input>
-          <label htmlFor="leaf-pic">Imagem da folha:</label>
-          <input
-            id="leaf-pic"
-            name="leaf-pic"
-            type="file"
-            onChange={(e) =>
-              setSpecie({ ...specie, leafPicture: e.target.files[0] })
-            }
           ></input>
           <input
             id="flower-morfology"
             name="flower-morfology"
             type="text"
             placeholder="Morfologia da flor"
-            onChange={(e) =>
-              setSpecie({ ...specie, flowerMorfology: e.target.value })
-            }
-          ></input>
-          <label htmlFor="flower-pic">Imagem da flor:</label>
-          <input
-            id="flower-pic"
-            name="flower-pic"
-            type="file"
-            onChange={(e) =>
-              setSpecie({ ...specie, flowerPicture: e.target.files[0] })
-            }
           ></input>
           <input
             id="fruit-morfology"
             name="fruit-morfology"
             type="text"
             placeholder="Morfologia do fruto"
-            onChange={(e) =>
-              setSpecie({ ...specie, fruitMorfology: e.target.value })
-            }
-          ></input>
-          <label htmlFor="fruit-pic">Imagem do fruto:</label>
-          <input
-            id="fruit-pic"
-            name="fruit-pic"
-            type="file"
-            onChange={(e) =>
-              setSpecie({ ...specie, fruitPicture: e.target.files[0] })
-            }
           ></input>
           <input
             id="underground-morfology"
             name="underground-morfology"
             type="text"
             placeholder="Morfologia do órgão subterrâneo"
-            onChange={(e) =>
-              setSpecie({ ...specie, undergroundMorfology: e.target.value })
-            }
-          ></input>
-          <label htmlFor="underground-pic">Imagem do órgão subterrâneo:</label>
-          <input
-            id="underground-pic"
-            name="underground-pic"
-            type="file"
-            onChange={(e) =>
-              setSpecie({ ...specie, undergroundPicture: e.target.files[0] })
-            }
           ></input>
           <input
             id="edible-parts"
             name="edible-parts"
             type="text"
             placeholder="Partes comestíveis"
-            onChange={(e) =>
-              setSpecie({ ...specie, edibleParts: e.target.value })
-            }
           ></input>
+          <div className="images">
+            <div className="top">
+              <div>
+                <label htmlFor="leaf-pic">Imagem da folha:</label>
+                <input id="leaf-pic" name="leaf-pic" type="file"></input>
+              </div>
+              <div>
+                <label htmlFor="flower-pic">Imagem da flor:</label>
+                <input id="flower-pic" name="flower-pic" type="file"></input>
+              </div>
+            </div>
+            <div className="bottom">
+              <div>
+                <label htmlFor="fruit-pic">Imagem do fruto:</label>
+                <input id="fruit-pic" name="fruit-pic" type="file"></input>
+              </div>
+              <div>
+                <label htmlFor="underground-pic">
+                  Imagem do órgão subterrâneo:
+                </label>
+                <input
+                  id="underground-pic"
+                  name="underground-pic"
+                  type="file"
+                ></input>
+              </div>
+            </div>
+          </div>
           <button type="submit">Submeter</button>
         </form>
       </Container>
@@ -144,7 +121,6 @@ const Body = styled.div`
 
 const Container = styled.div`
   width: 100%;
-  margin-top: 80px;
 
   form {
     width: 100%;
@@ -182,6 +158,80 @@ const Container = styled.div`
       margin-bottom: 35px;
 
       cursor: ${({ loading }) => (loading ? "initial" : "pointer")};
+    }
+
+    .images {
+      width: 70%;
+      margin-top: 25px;
+      padding-left: 10px;
+
+      display: flex;
+      flex-wrap: wrap;
+
+      .bottom,
+      .top {
+        width: 100%;
+
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+
+        div {
+          width: 50%;
+
+          input {
+            border: none;
+            color: #ffffff;
+
+            width: 50%;
+            margin-top: 5px;
+          }
+          label {
+            font-size: 18px;
+            color: #ffffff;
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    form {
+      button {
+        font-size: 15px;
+        width: 25%;
+      }
+      .images {
+        .top,
+        .bottom {
+          div {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    form {
+      input {
+        font-size: 14px;
+      }
+      button {
+        font-size: 14px;
+        width: 30%;
+      }
+      .images {
+        .top,
+        .bottom {
+          div {
+            label {
+              font-size: 16px;
+            }
+          }
+        }
+      }
     }
   }
 `;
