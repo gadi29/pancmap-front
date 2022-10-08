@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import TokenContext from "../contexts/TokenContext";
 import UserContext from "../contexts/UserContext";
+import EditSpecie from "./EditSpecie";
 import Header from "./Header";
 import ListSpecies from "./ListSpecies";
 
@@ -39,6 +40,7 @@ function App() {
             <Route path="/new-specie" element={<NewSpecie />} />
             <Route path="/species" element={<ListSpecies />} />
             <Route path="/specie/:specieId" element={<SpeciePage />} />
+            <Route path="/edit-specie/:specieId" element={<EditSpecie />} />
           </Routes>
         </BrowserRouter>
       </TokenContext.Provider>

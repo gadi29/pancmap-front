@@ -25,7 +25,11 @@ function ListLoaded(
     },
   };
 
-  function handleEdit(specieId) {}
+  function handleEdit(specieId) {
+    const response = axios.put(`${backUrl}/specie/${specieId}`, config);
+
+    //edit specie
+  }
 
   function handleDelete(specieId) {
     if (window.confirm("Tem certeza que deseja apagar esta espécie?")) {
