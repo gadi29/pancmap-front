@@ -26,6 +26,13 @@ export default function Header() {
       <h1>Panc Map</h1>
       <div>
         <h2 onClick={() => navigate("/species")}>Espécies</h2>
+        {user.name !== "Visitante" ? (
+          <>
+            <h2 onClick={() => navigate("/user-registers")}>Seus registros</h2>
+          </>
+        ) : (
+          <></>
+        )}
       </div>
       <div>
         {user.name !== "Visitante" ? (
@@ -69,12 +76,24 @@ const Top = styled.div`
   }
 
   div {
+    height: 100%;
     display: flex;
+    align-items: center;
 
     h2 {
+      height: 99%;
       font-size: 18px;
       margin-left: 15px;
+      display: flex;
+      align-items: center;
       cursor: pointer;
+    }
+
+    h2:hover {
+      border-bottom: 5px solid #ffffff;
+      border-radius: 3px;
+      font-size: 19px;
+      font-weight: 600;
     }
   }
 `;

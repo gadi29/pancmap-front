@@ -70,7 +70,7 @@ export default function NewRegister() {
 
     try {
       await axios.post(`${backUrl}/register`, { ...register }, config);
-      navigate("/");
+      navigate("/user-registers");
     } catch (error) {
       alert(
         `Campo obrigatório não preenchido, ou preenchido incorretamente (Erro ${error.response.status})`
@@ -250,14 +250,14 @@ const Container = styled.div`
         background-color: #ffffff;
         border: 2px solid #5e053d;
         border-top: none;
-        border-radius: 7px 7px 0 0;
+        border-radius: 0 0 7px 7px;
 
         width: 100%;
         padding: 10px 10px;
 
         display: ${({ showBar }) => (showBar ? "initial" : "none")};
         position: absolute;
-        top: 48px;
+        top: 47px;
         left: 0;
 
         h3 {
