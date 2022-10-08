@@ -11,11 +11,15 @@ export default function Header() {
   return (
     <Top>
       <h1>Panc Map</h1>
-      <div></div>
-
+      <div>
+        <h2 onClick={() => navigate("/species")}>Espécies</h2>
+      </div>
       <div>
         {user.name !== "Visitante" ? (
-          <></>
+          <>
+            <h2>Novo registro</h2>
+            <h2>Sair</h2>
+          </>
         ) : (
           <>
             <h2 onClick={() => navigate("/login")}>Login</h2>
