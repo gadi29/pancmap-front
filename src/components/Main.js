@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MapContainer, TileLayer, useMap, Popup, Marker } from "react-leaflet";
 import { Icon } from "leaflet";
 import styled from "styled-components";
 import axios from "axios";
+
+import PositionContext from "../contexts/PositionContext";
 
 import "../../node_modules/leaflet/dist/leaflet.css";
 import leaf from "../assets/images/leaf-svgrepo-com.svg";
@@ -10,10 +12,11 @@ import { backUrl } from "../utils/constants";
 import { useNavigate } from "react-router-dom";
 
 export default function Main() {
+  const { position } = useContext(PositionContext);
   const [registers, setRegisters] = useState();
   const [loading, setLoading] = useState(true);
   const CCACoord = [-27.582346, -48.504342];
-  const [initialPosition, setInitialPosition] = useState(CCACoord);
+  const [initialPosition, setInitialPosition] = useState(null);
   const point = new Icon({
     iconUrl: leaf,
     iconSize: [40, 40],
@@ -22,10 +25,16 @@ export default function Main() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      setInitialPosition([position.coords.latitude, position.coords.longitude]);
-    });
-  }, []);
+    console.log(position);
+    if (position !== null) setInitialPosition(position);
+    else
+      navigator.geolocation.getCurrentPosition((position) => {
+        setInitialPosition([
+          position.coords.latitude,
+          position.coords.longitude,
+        ]);
+      });
+  }, [position]);
 
   useEffect(() => {
     setLoading(true);

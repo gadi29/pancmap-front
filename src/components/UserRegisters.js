@@ -5,12 +5,21 @@ import axios from "axios";
 import { FaTrashAlt } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
 
+import PositionContext from "../contexts/PositionContext";
 import UserContext from "../contexts/UserContext";
 import TokenContext from "../contexts/TokenContext";
 
 import { backUrl } from "../utils/constants";
 
-function ListLoaded(token, list, setLoading, state, setState, navigate) {
+function ListLoaded(
+  token,
+  setPosition,
+  list,
+  setLoading,
+  state,
+  setState,
+  navigate
+) {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -42,7 +51,16 @@ function ListLoaded(token, list, setLoading, state, setState, navigate) {
       ) : (
         list.map((register) => (
           <div className="register">
-            <div className="text">
+            <div
+              onClick={() => {
+                setPosition([
+                  Number(register.latitude),
+                  Number(register.longitude),
+                ]);
+                navigate("/main");
+              }}
+              className="text"
+            >
               <h2>{register.title}</h2>
               <h3>- {register.specie.cientificName}</h3>
             </div>
@@ -70,6 +88,7 @@ function ListLoaded(token, list, setLoading, state, setState, navigate) {
 }
 
 export default function UserRegisters() {
+  const { setPosition } = useContext(PositionContext);
   const { user } = useContext(UserContext);
   const { token } = useContext(TokenContext);
 
@@ -106,7 +125,15 @@ export default function UserRegisters() {
           {loading ? (
             <h2>Carregando...</h2>
           ) : (
-            ListLoaded(token, list, setLoading, state, setState, navigate)
+            ListLoaded(
+              token,
+              setPosition,
+              list,
+              setLoading,
+              state,
+              setState,
+              navigate
+            )
           )}
         </Lista>
         <button onClick={() => navigate("/new-register")}>Novo Registro</button>
@@ -231,6 +258,7 @@ const Lista = styled.div`
     .text {
       display: flex;
       align-items: center;
+      cursor: pointer;
 
       h3 {
         color: #6e6e6e;

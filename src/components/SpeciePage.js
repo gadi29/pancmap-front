@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 
+import PositionContext from "../contexts/PositionContext";
+
 import { backUrl } from "../utils/constants";
 
-function SpeciePageLoaded(specie, registers) {
+function SpeciePageLoaded(specie, registers, setPosition, navigate) {
   return (
     <Main>
       <Top>
@@ -65,7 +67,17 @@ function SpeciePageLoaded(specie, registers) {
             <div className="registers">
               <h3>Lista de registros da espécie</h3>
               {registers.map((register) => (
-                <h4>{register.title}</h4>
+                <h4
+                  onClick={() => {
+                    setPosition([
+                      Number(register.latitude),
+                      Number(register.longitude),
+                    ]);
+                    navigate("/main");
+                  }}
+                >
+                  {register.title}
+                </h4>
               ))}
             </div>
           )}
@@ -76,10 +88,13 @@ function SpeciePageLoaded(specie, registers) {
 }
 
 export default function SpeciePage() {
+  const { setPosition } = useContext(PositionContext);
   const { specieId } = useParams();
   const [specie, setSpecie] = useState();
   const [registers, setRegisters] = useState();
   const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const response = axios.get(`${backUrl}/specie/${specieId}`);
@@ -104,14 +119,15 @@ export default function SpeciePage() {
       })
       .catch((e) => {
         alert(`Erro ${e.response.status}`);
-        setLoading(false);
       });
   }, [specieId]);
 
   return (
     <Body>
       <Container loading={loading}>
-        {specie ? SpeciePageLoaded(specie, registers) : "Carregando..."}
+        {loading
+          ? "Carregando..."
+          : SpeciePageLoaded(specie, registers, setPosition, navigate)}
       </Container>
     </Body>
   );
@@ -255,6 +271,7 @@ const Right = styled.div`
     h4 {
       font-size: 18px;
       margin-top: 10px;
+      cursor: pointer;
     }
   }
 
