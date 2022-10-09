@@ -57,7 +57,7 @@ export default function NewRegister() {
     response
       .then((r) => {
         setList([...r.data]);
-        //setLoading(false);
+        setLoading(false);
       })
       .catch((e) => {
         alert(`Erro ${e.response.status}`);

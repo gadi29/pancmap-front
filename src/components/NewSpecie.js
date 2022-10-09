@@ -2,6 +2,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { ThreeDots } from "react-loader-spinner";
 
 import UserContext from "../contexts/UserContext";
 import TokenContext from "../contexts/TokenContext";
@@ -173,7 +174,7 @@ export default function NewSpecie() {
             disabled={loading}
           ></input>
           <button type="submit" disabled={loading}>
-            {loading ? "Carregando..." : "Submeter"}
+            {loading ? <ThreeDots width={50} color="#FFFFFF" /> : "Submeter"}
           </button>
         </form>
       </Container>
@@ -231,6 +232,10 @@ const Container = styled.div`
       margin-top: 20px;
       margin-bottom: 35px;
 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
       cursor: ${({ loading }) => (loading ? "initial" : "pointer")};
     }
 
@@ -270,11 +275,11 @@ const Container = styled.div`
     }
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 720px) {
     form {
       button {
         font-size: 15px;
-        width: 25%;
+        width: 30%;
       }
       .images {
         .top,
@@ -294,7 +299,7 @@ const Container = styled.div`
       }
       button {
         font-size: 14px;
-        width: 30%;
+        width: 40%;
       }
       .images {
         .top,
