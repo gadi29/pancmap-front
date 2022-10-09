@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
+import { ProgressBar } from "react-loader-spinner";
 
 import PositionContext from "../contexts/PositionContext";
 
@@ -137,10 +138,17 @@ export default function SpeciePage() {
 
   return (
     <Body>
-      <Container loading={loadingRegisters & loadingSpecie}>
-        {loadingRegisters & loadingSpecie
-          ? "Carregando..."
-          : SpeciePageLoaded(specie, registers, setPosition, navigate)}
+      <Container loading={loadingRegisters || loadingSpecie}>
+        {loadingRegisters || loadingSpecie ? (
+          <ProgressBar
+            width={150}
+            height={150}
+            borderColor="#b93c8b"
+            barColor="#FFFFFF"
+          />
+        ) : (
+          SpeciePageLoaded(specie, registers, setPosition, navigate)
+        )}
       </Container>
     </Body>
   );
