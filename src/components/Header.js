@@ -165,9 +165,27 @@ const Top = styled.div`
         display: none;
       }
 
+      h3:hover {
+        border: none;
+        font-size: 18px;
+        font-weight: 400;
+      }
+
       .lateral {
         display: flex;
         align-items: center;
+      }
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    div {
+      h3 {
+        font-size: 16px;
+      }
+
+      h3:hover {
+        font-size: 16px;
       }
     }
   }
@@ -177,14 +195,14 @@ const LateralBar = styled.div`
   display: ${({ showBar }) => (showBar ? "flex" : "none")};
   width: 100%;
   height: calc(100vh - 80px);
-  z-index: 2;
+  z-index: 5000;
   position: fixed;
   top: 80px;
   left: 0;
 
   .bar {
     background-color: #a82b7a;
-    width: 25%;
+    width: 40%;
 
     flex-direction: column;
     justify-content: flex-start;
@@ -194,16 +212,50 @@ const LateralBar = styled.div`
       color: #ffffff;
       font-size: 18px;
       margin-top: 25px;
-      margin-left: 15px;
+      margin-left: 25px;
       cursor: pointer;
     }
   }
 
   .back {
-    width: 75%;
+    width: 60%;
   }
 
   @media screen and (min-width: 768px) {
     display: none;
+  }
+
+  @media screen and (max-width: 720px) {
+    .bar {
+      width: 43%;
+    }
+
+    .back {
+      width: 57%;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .bar {
+      width: 50%;
+
+      h2 {
+        font-size: 16px;
+      }
+    }
+
+    .back {
+      width: 50%;
+    }
+  }
+
+  @media screen and (max-width: 320px) {
+    .bar {
+      width: 60%;
+    }
+
+    .back {
+      width: 40%;
+    }
   }
 `;
