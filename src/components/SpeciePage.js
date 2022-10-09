@@ -17,32 +17,44 @@ function SpeciePageLoaded(specie, registers, setPosition, navigate) {
       <Center>
         <Left>
           <div className="image-morfology">
-            <img src={`${backUrl}${specie.leafPicturePath}`} alt="Folha" />
+            <img src={`${specie.leafPicturePath}`} alt="Folha" />
             <h3>Morfologia da folha</h3>
             <h4>{specie.leafMorfology}</h4>
           </div>
           <div className="image-morfology">
-            <img src={`${backUrl}${specie.flowerPicturePath}`} alt="Flor" />
+            <img src={`${specie.flowerPicturePath}`} alt="Flor" />
             <h3>Morfologia da flor</h3>
             <h4>{specie.flowerMorfology}</h4>
           </div>
-          <div className="image-morfology">
-            <img src={`${backUrl}${specie.fruitPicturePath}`} alt="Fruto" />
-            <h3>Morfologia do fruto</h3>
-            <h4>{specie.fruitMorfology}</h4>
-          </div>
-          <div className="image-morfology">
-            {specie.undergroundPicturePath ? (
-              <img
-                src={`${backUrl}${specie.undergroundPicturePath}`}
-                alt="Órgão subterrâneo"
-              />
-            ) : (
-              <></>
-            )}
-            <h3>Morfologia do órgão subterrâneo</h3>
-            <h4>{specie.undergroundMorfology}</h4>
-          </div>
+          {specie.fruitMorfology ? (
+            <div className="image-morfology">
+              {specie.fruitPicturePath ? (
+                <img src={`${specie.fruitPicturePath}`} alt="Fruto" />
+              ) : (
+                <></>
+              )}
+              <h3>Morfologia do fruto</h3>
+              <h4>{specie.fruitMorfology}</h4>
+            </div>
+          ) : (
+            <></>
+          )}
+          {specie.undergroundMorfology ? (
+            <div className="image-morfology">
+              {specie.undergroundPicturePath ? (
+                <img
+                  src={`${specie.undergroundPicturePath}`}
+                  alt="Órgão subterrâneo"
+                />
+              ) : (
+                <></>
+              )}
+              <h3>Morfologia do órgão subterrâneo</h3>
+              <h4>{specie.undergroundMorfology}</h4>
+            </div>
+          ) : (
+            <></>
+          )}
         </Left>
         <Right>
           <div>
