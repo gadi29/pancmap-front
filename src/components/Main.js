@@ -158,7 +158,7 @@ const Map = styled.div`
 
     width: 60px;
     height: 60px;
-    z-index: 400;
+    z-index: 5000;
 
     display: flex;
     justify-content: center;
@@ -184,6 +184,11 @@ const Map = styled.div`
     .leaflet-container {
       margin-top: 5px;
       height: 89%;
+    }
+
+    .actual:hover {
+      width: 60px;
+      height: 60px;
     }
   }
 
