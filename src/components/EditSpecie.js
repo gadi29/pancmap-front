@@ -2,6 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+import { ThreeDots } from "react-loader-spinner";
+import { ProgressBar } from "react-loader-spinner";
 
 import UserContext from "../contexts/UserContext";
 import TokenContext from "../contexts/TokenContext";
@@ -10,7 +12,8 @@ import { backUrl } from "../utils/constants";
 export default function EditSpecie() {
   const { user } = useContext(UserContext);
   const { token } = useContext(TokenContext);
-  const [loading, setLoading] = useState(true);
+  const [loadingSpecie, setLoadingSpecie] = useState(true);
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
   const { specieId } = useParams();
   const [specie, setSpecie] = useState({
     cientificName: "",
@@ -63,7 +66,7 @@ export default function EditSpecie() {
     response
       .then((r) => {
         setSpecie({ ...r.data });
-        setLoading(false);
+        setLoadingSpecie(false);
       })
       .catch((e) => {
         alert(`Erro ${e.response.status}`);
@@ -72,7 +75,7 @@ export default function EditSpecie() {
 
   async function handleEdit(e) {
     e.preventDefault();
-    setLoading(true);
+    setLoadingSubmit(true);
 
     try {
       await axios.put(
@@ -93,19 +96,24 @@ export default function EditSpecie() {
         },
         config
       );
-      setLoading(false);
+      setLoadingSubmit(false);
       navigate(`/specie/${specieId}`);
     } catch (error) {
       alert(`Campo obrigatório não preenchido, ou preenchido incorretamente`);
-      setLoading(false);
+      setLoadingSubmit(false);
     }
   }
 
   return (
     <Body>
-      <Container>
-        {loading ? (
-          <h2>Carregando...</h2>
+      <Container loadingSpecie={loadingSpecie}>
+        {loadingSpecie ? (
+          <ProgressBar
+            width={150}
+            height={150}
+            borderColor="#b93c8b"
+            barColor="#FFFFFF"
+          />
         ) : (
           <form onSubmit={handleEdit}>
             <input
@@ -115,7 +123,7 @@ export default function EditSpecie() {
                 setSpecie({ ...specie, cientificName: e.target.value })
               }
               placeholder="Nome científico*"
-              disabled={loading}
+              disabled={loadingSubmit}
               required
             ></input>
             <input
@@ -125,7 +133,7 @@ export default function EditSpecie() {
                 setSpecie({ ...specie, generalCharacteristics: e.target.value })
               }
               placeholder="Características gerais da espécie*"
-              disabled={loading}
+              disabled={loadingSubmit}
               required
             ></input>
             <input
@@ -135,7 +143,7 @@ export default function EditSpecie() {
                 setSpecie({ ...specie, curiosities: e.target.value })
               }
               placeholder="Curiosidades"
-              disabled={loading}
+              disabled={loadingSubmit}
             ></input>
             <input
               type="text"
@@ -144,7 +152,7 @@ export default function EditSpecie() {
                 setSpecie({ ...specie, leafMorfology: e.target.value })
               }
               placeholder="Morfologia da folha*"
-              disabled={loading}
+              disabled={loadingSubmit}
               required
             ></input>
             <input
@@ -154,7 +162,7 @@ export default function EditSpecie() {
                 setSpecie({ ...specie, flowerMorfology: e.target.value })
               }
               placeholder="Morfologia da flor*"
-              disabled={loading}
+              disabled={loadingSubmit}
               required
             ></input>
             <input
@@ -164,7 +172,7 @@ export default function EditSpecie() {
                 setSpecie({ ...specie, fruitMorfology: e.target.value })
               }
               placeholder="Morfologia do fruto"
-              disabled={loading}
+              disabled={loadingSubmit}
             ></input>
             <input
               type="text"
@@ -173,7 +181,7 @@ export default function EditSpecie() {
                 setSpecie({ ...specie, undergroundMorfology: e.target.value })
               }
               placeholder="Morfologia do órgão subterrâneo"
-              disabled={loading}
+              disabled={loadingSubmit}
             ></input>
             <input
               type="text"
@@ -182,7 +190,7 @@ export default function EditSpecie() {
                 setSpecie({ ...specie, edibleParts: e.target.value })
               }
               placeholder="Partes comestíveis*"
-              disabled={loading}
+              disabled={loadingSubmit}
               required
             ></input>
             <input
@@ -192,7 +200,7 @@ export default function EditSpecie() {
                 setSpecie({ ...specie, leafPicturePath: e.target.value })
               }
               placeholder="Imagem da folha (URL)*"
-              disabled={loading}
+              disabled={loadingSubmit}
               required
             ></input>
             <input
@@ -202,7 +210,7 @@ export default function EditSpecie() {
                 setSpecie({ ...specie, flowerPicturePath: e.target.value })
               }
               placeholder="Imagem da flor (URL)*"
-              disabled={loading}
+              disabled={loadingSubmit}
               required
             ></input>
             <input
@@ -212,7 +220,7 @@ export default function EditSpecie() {
                 setSpecie({ ...specie, fruitPicturePath: e.target.value })
               }
               placeholder="Imagem do fruto (URL)"
-              disabled={loading}
+              disabled={loadingSubmit}
             ></input>
             <input
               type="text"
@@ -221,9 +229,15 @@ export default function EditSpecie() {
                 setSpecie({ ...specie, undergroundPicturePath: e.target.value })
               }
               placeholder="Imagem do órgão subterrâneo (URL)"
-              disabled={loading}
+              disabled={loadingSubmit}
             ></input>
-            <button type="submit">Submeter</button>
+            <button type="submit">
+              {loadingSubmit ? (
+                <ThreeDots width={50} color="#FFFFFF" />
+              ) : (
+                "Submeter"
+              )}
+            </button>
           </form>
         )}
       </Container>
@@ -245,10 +259,15 @@ const Body = styled.div`
 
 const Container = styled.div`
   width: 100%;
+  height: calc(100% - 100px);
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: ${(loadingSpecie) => (loadingSpecie ? "center" : "initial")};
 
   form {
     width: 100%;
-    padding-top: 200px;
+    margin-top: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -281,15 +300,19 @@ const Container = styled.div`
       margin-top: 20px;
       margin-bottom: 35px;
 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
       cursor: ${({ loading }) => (loading ? "initial" : "pointer")};
     }
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 720px) {
     form {
       button {
         font-size: 15px;
-        width: 25%;
+        width: 30%;
       }
     }
   }
@@ -301,7 +324,7 @@ const Container = styled.div`
       }
       button {
         font-size: 14px;
-        width: 30%;
+        width: 40%;
       }
     }
   }

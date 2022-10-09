@@ -3,13 +3,17 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import { FaChevronCircleDown, FaChevronCircleUp } from "react-icons/fa";
+import { ThreeDots } from "react-loader-spinner";
+import { ProgressBar } from "react-loader-spinner";
 
 import TokenContext from "../contexts/TokenContext";
 import { backUrl } from "../utils/constants";
 
 export default function EditRegister() {
   const { token } = useContext(TokenContext);
-  const [loading, setLoading] = useState(true);
+  const [loadingSpecies, setLoadingSpecies] = useState(true);
+  const [loadingRegister, setLoadingRegister] = useState(true);
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
   const { registerId } = useParams();
   const [showBar, setShowBar] = useState(false);
   const [list, setList] = useState();
@@ -44,6 +48,7 @@ export default function EditRegister() {
           observations: r.data.observations,
         });
         setSpecie({ id: r.data.specie.id, name: r.data.specie.cientificName });
+        setLoadingRegister(false);
       })
       .catch((e) => {
         alert(`Erro ${e.response.status}`);
@@ -51,24 +56,22 @@ export default function EditRegister() {
   }, [registerId]);
 
   useEffect(() => {
-    setLoading(true);
     const response = axios.get(`${backUrl}/species`);
 
     response
       .then((r) => {
         setList([...r.data]);
-        setLoading(false);
+        setLoadingSpecies(false);
       })
       .catch((e) => {
         alert(`Erro ${e.response.status}`);
-        setLoading(false);
       });
   }, []);
 
   async function handleEdit(e) {
     e.preventDefault();
 
-    setLoading(true);
+    setLoadingSubmit(true);
     try {
       await axios.put(
         `${backUrl}/register/${registerId}`,
@@ -81,19 +84,24 @@ export default function EditRegister() {
         },
         config
       );
-      setLoading(false);
+      setLoadingSubmit(false);
       navigate(`/user-registers`);
     } catch (error) {
       alert("Campo obrigatório não preenchido, ou preenchido incorretamente");
-      setLoading(false);
+      setLoadingSubmit(false);
     }
   }
 
   return (
     <Body>
-      <Container showBar={showBar}>
-        {loading ? (
-          <h2>Carregando...</h2>
+      <Container showBar={showBar} loading={loadingSpecies || loadingRegister}>
+        {loadingRegister || loadingSpecies ? (
+          <ProgressBar
+            width={150}
+            height={150}
+            borderColor="#b93c8b"
+            barColor="#FFFFFF"
+          />
         ) : (
           <form onSubmit={handleEdit}>
             <input
@@ -103,7 +111,7 @@ export default function EditRegister() {
                 setRegister({ ...register, title: e.target.value })
               }
               placeholder="Descrição breve do local (uma frase curta)"
-              disabled={loading}
+              disabled={loadingSubmit}
               required
             ></input>
             <input
@@ -113,7 +121,7 @@ export default function EditRegister() {
                 setRegister({ ...register, longitude: e.target.value })
               }
               placeholder="Longitude (em UTM)"
-              disabled={loading}
+              disabled={loadingSubmit}
               required
             ></input>
             <input
@@ -123,7 +131,7 @@ export default function EditRegister() {
                 setRegister({ ...register, latitude: e.target.value })
               }
               placeholder="Latitude (em UTM)"
-              disabled={loading}
+              disabled={loadingSubmit}
               required
             ></input>
             <input
@@ -133,7 +141,7 @@ export default function EditRegister() {
                 setRegister({ ...register, observations: e.target.value })
               }
               placeholder="Observações (descrições mais detalhadas)"
-              disabled={loading}
+              disabled={loadingSubmit}
               required
             ></input>
             <div className="specie" onClick={() => setShowBar(!showBar)}>
@@ -153,31 +161,30 @@ export default function EditRegister() {
                   style={{ cursor: "pointer" }}
                 />
               )}
-
               <div className="list">
-                {!loading ? (
-                  list.map((specie) => (
-                    <>
-                      <h3
-                        onClick={() => {
-                          setSpecie({
-                            id: specie.id,
-                            name: specie.cientificName,
-                          });
-                          setShowBar(!showBar);
-                        }}
-                      >
-                        {specie.cientificName}
-                      </h3>
-                    </>
-                  ))
-                ) : (
-                  <></>
-                )}
+                {list.map((specie) => (
+                  <>
+                    <h3
+                      onClick={() => {
+                        setSpecie({
+                          id: specie.id,
+                          name: specie.cientificName,
+                        });
+                        setShowBar(!showBar);
+                      }}
+                    >
+                      {specie.cientificName}
+                    </h3>
+                  </>
+                ))}
               </div>
             </div>
-            <button type="submit" disabled={loading}>
-              {loading ? "Carregando..." : "Submeter"}
+            <button type="submit" disabled={loadingSubmit}>
+              {loadingSubmit ? (
+                <ThreeDots width={50} color="#FFFFFF" />
+              ) : (
+                "Submeter"
+              )}
             </button>
           </form>
         )}
@@ -200,10 +207,15 @@ const Body = styled.div`
 
 const Container = styled.div`
   width: 100%;
+  height: calc(100% - 100px);
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: ${(loading) => (loading ? "center" : "flex-start")};
 
   form {
     width: 100%;
-    padding-top: 200px;
+    margin-top: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -235,6 +247,10 @@ const Container = styled.div`
       height: 50px;
       margin-top: 20px;
       margin-bottom: 35px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
       cursor: ${({ loading }) => (loading ? "initial" : "pointer")};
     }
@@ -283,11 +299,11 @@ const Container = styled.div`
     }
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 720px) {
     form {
       button {
         font-size: 15px;
-        width: 25%;
+        width: 30%;
       }
     }
   }
@@ -299,7 +315,7 @@ const Container = styled.div`
       }
       button {
         font-size: 14px;
-        width: 30%;
+        width: 40%;
       }
     }
   }
