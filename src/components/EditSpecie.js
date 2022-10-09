@@ -21,10 +21,26 @@ export default function EditSpecie() {
     fruitMorfology: "",
     undergroundMorfology: "",
     edibleParts: "",
+    leafPicturePath: "",
+    flowerPicturePath: "",
+    fruitPicturePath: "",
+    undergroundPicturePath: "",
   });
 
   if (specie.curiosities === null) {
     setSpecie({ ...specie, curiosities: "" });
+  }
+  if (specie.fruitMorfology === null) {
+    setSpecie({ ...specie, fruitMorfology: "" });
+  }
+  if (specie.undergroundMorfology === null) {
+    setSpecie({ ...specie, undergroundMorfology: "" });
+  }
+  if (specie.fruitPicturePath === null) {
+    setSpecie({ ...specie, fruitPicturePath: "" });
+  }
+  if (specie.undergroundPicturePath === null) {
+    setSpecie({ ...specie, undergroundPicturePath: "" });
   }
 
   const navigate = useNavigate();
@@ -51,14 +67,13 @@ export default function EditSpecie() {
       })
       .catch((e) => {
         alert(`Erro ${e.response.status}`);
-        setLoading(false);
       });
   }, [specieId]);
 
   async function handleEdit(e) {
     e.preventDefault();
-
     setLoading(true);
+
     try {
       await axios.put(
         `${backUrl}/specie/${specieId}`,
@@ -71,13 +86,17 @@ export default function EditSpecie() {
           fruitMorfology: specie.fruitMorfology,
           undergroundMorfology: specie.undergroundMorfology,
           edibleParts: specie.edibleParts,
+          leafPicturePath: specie.leafPicturePath,
+          flowerPicturePath: specie.flowerPicturePath,
+          fruitPicturePath: specie.fruitPicturePath,
+          undergroundPicturePath: specie.undergroundPicturePath,
         },
         config
       );
       setLoading(false);
       navigate(`/specie/${specieId}`);
     } catch (error) {
-      alert("Campo obrigatório não preenchido, ou preenchido incorretamente");
+      alert(`Campo obrigatório não preenchido, ou preenchido incorretamente`);
       setLoading(false);
     }
   }
@@ -95,7 +114,7 @@ export default function EditSpecie() {
               onChange={(e) =>
                 setSpecie({ ...specie, cientificName: e.target.value })
               }
-              placeholder="Nome científico"
+              placeholder="Nome científico*"
               disabled={loading}
               required
             ></input>
@@ -105,7 +124,7 @@ export default function EditSpecie() {
               onChange={(e) =>
                 setSpecie({ ...specie, generalCharacteristics: e.target.value })
               }
-              placeholder="Características gerais da espécie"
+              placeholder="Características gerais da espécie*"
               disabled={loading}
               required
             ></input>
@@ -117,7 +136,6 @@ export default function EditSpecie() {
               }
               placeholder="Curiosidades"
               disabled={loading}
-              required
             ></input>
             <input
               type="text"
@@ -125,7 +143,7 @@ export default function EditSpecie() {
               onChange={(e) =>
                 setSpecie({ ...specie, leafMorfology: e.target.value })
               }
-              placeholder="Morfologia da folha"
+              placeholder="Morfologia da folha*"
               disabled={loading}
               required
             ></input>
@@ -135,7 +153,7 @@ export default function EditSpecie() {
               onChange={(e) =>
                 setSpecie({ ...specie, flowerMorfology: e.target.value })
               }
-              placeholder="Morfologia da flor"
+              placeholder="Morfologia da flor*"
               disabled={loading}
               required
             ></input>
@@ -147,7 +165,6 @@ export default function EditSpecie() {
               }
               placeholder="Morfologia do fruto"
               disabled={loading}
-              required
             ></input>
             <input
               type="text"
@@ -157,7 +174,6 @@ export default function EditSpecie() {
               }
               placeholder="Morfologia do órgão subterrâneo"
               disabled={loading}
-              required
             ></input>
             <input
               type="text"
@@ -165,9 +181,47 @@ export default function EditSpecie() {
               onChange={(e) =>
                 setSpecie({ ...specie, edibleParts: e.target.value })
               }
-              placeholder="Partes comestíveis"
+              placeholder="Partes comestíveis*"
               disabled={loading}
               required
+            ></input>
+            <input
+              type="text"
+              value={specie.leafPicturePath}
+              onChange={(e) =>
+                setSpecie({ ...specie, leafPicturePath: e.target.value })
+              }
+              placeholder="Imagem da folha (URL)*"
+              disabled={loading}
+              required
+            ></input>
+            <input
+              type="text"
+              value={specie.flowerPicturePath}
+              onChange={(e) =>
+                setSpecie({ ...specie, flowerPicturePath: e.target.value })
+              }
+              placeholder="Imagem da flor (URL)*"
+              disabled={loading}
+              required
+            ></input>
+            <input
+              type="text"
+              value={specie.fruitPicturePath}
+              onChange={(e) =>
+                setSpecie({ ...specie, fruitPicturePath: e.target.value })
+              }
+              placeholder="Imagem do fruto (URL)"
+              disabled={loading}
+            ></input>
+            <input
+              type="text"
+              value={specie.undergroundPicturePath}
+              onChange={(e) =>
+                setSpecie({ ...specie, undergroundPicturePath: e.target.value })
+              }
+              placeholder="Imagem do órgão subterrâneo (URL)"
+              disabled={loading}
             ></input>
             <button type="submit">Submeter</button>
           </form>
