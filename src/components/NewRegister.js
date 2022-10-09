@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { FaChevronCircleDown, FaChevronCircleUp } from "react-icons/fa";
+import { ThreeDots } from "react-loader-spinner";
 
 import UserContext from "../contexts/UserContext";
 import TokenContext from "../contexts/TokenContext";
@@ -56,11 +57,10 @@ export default function NewRegister() {
     response
       .then((r) => {
         setList([...r.data]);
-        setLoading(false);
+        //setLoading(false);
       })
       .catch((e) => {
         alert(`Erro ${e.response.status}`);
-        setLoading(false);
       });
   }, []);
 
@@ -72,9 +72,7 @@ export default function NewRegister() {
       await axios.post(`${backUrl}/register`, { ...register }, config);
       navigate("/user-registers");
     } catch (error) {
-      alert(
-        `Campo obrigatório não preenchido, ou preenchido incorretamente (Erro ${error.response.status})`
-      );
+      alert(`Campo obrigatório não preenchido, ou preenchido incorretamente`);
       setLoading(false);
     }
   }
@@ -138,7 +136,6 @@ export default function NewRegister() {
                 style={{ cursor: "pointer" }}
               />
             )}
-
             <div className="list">
               {!loading ? (
                 list.map((specie) => (
@@ -164,7 +161,7 @@ export default function NewRegister() {
           </div>
 
           <button type="submit" disabled={loading}>
-            {loading ? "Carregando..." : "Submeter"}
+            {loading ? <ThreeDots width={50} color="#FFFFFF" /> : "Submeter"}
           </button>
         </form>
       </Container>
@@ -222,6 +219,10 @@ const Container = styled.div`
       margin-top: 20px;
       margin-bottom: 35px;
 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
       cursor: ${({ loading }) => (loading ? "initial" : "pointer")};
     }
 
@@ -269,11 +270,11 @@ const Container = styled.div`
     }
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 720px) {
     form {
       button {
         font-size: 15px;
-        width: 25%;
+        width: 30%;
       }
     }
   }
@@ -285,7 +286,7 @@ const Container = styled.div`
       }
       button {
         font-size: 14px;
-        width: 30%;
+        width: 40%;
       }
     }
   }
