@@ -131,8 +131,8 @@ const Body = styled.div`
 
   @media screen and (max-width: 720px) {
     .actual {
-      bottom: 45px;
-      right: 35px;
+      bottom: 75px;
+      right: 40px;
     }
   }
 `;
@@ -140,7 +140,7 @@ const Body = styled.div`
 const Map = styled.div`
   width: 100%;
   height: calc(100vh - 100px);
-  margin-top: 100px;
+  margin-top: 90px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -166,5 +166,13 @@ const Map = styled.div`
   .leaflet-container {
     width: 98%;
     height: 85vh;
+    border-radius: 5px;
+    border: 3px solid #ffffff;
+  }
+
+  @media screen and (max-width: 720px) {
+    .leaflet-container {
+      height: 78vh;
+    }
   }
 `;

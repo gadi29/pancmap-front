@@ -176,6 +176,14 @@ const Main = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+
+  @media screen and (max-width: 900px) {
+    padding: 0 70px;
+  }
+
+  @media screen and (max-width: 480px) {
+    padding: 0 20px;
+  }
 `;
 
 const Top = styled.div`
