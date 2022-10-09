@@ -179,6 +179,16 @@ const Top = styled.div`
   }
 
   @media screen and (max-width: 768px) {
+    .center {
+      h1 {
+        font-size: 40px;
+      }
+
+      img {
+        width: 70px;
+      }
+    }
+
     .left,
     .right {
       h2 {

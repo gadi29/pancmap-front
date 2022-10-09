@@ -74,19 +74,23 @@ export default function Main() {
   return (
     <Body>
       <Map>{loading ? <h2>Carregando...</h2> : displayMap()}</Map>
-      <div
-        className="actual"
-        onClick={() =>
-          navigator.geolocation.getCurrentPosition((position) => {
-            setInitialPosition([
-              position.coords.latitude,
-              position.coords.longitude,
-            ]);
-          })
-        }
-      >
-        <AiOutlineAim size={40} color={"#FFFFFF"} />
-      </div>
+      {loading ? (
+        <></>
+      ) : (
+        <div
+          className="actual"
+          onClick={() =>
+            navigator.geolocation.getCurrentPosition((position) => {
+              setInitialPosition([
+                position.coords.latitude,
+                position.coords.longitude,
+              ]);
+            })
+          }
+        >
+          <AiOutlineAim size={40} color={"#FFFFFF"} />
+        </div>
+      )}
     </Body>
   );
 }
