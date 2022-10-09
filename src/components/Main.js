@@ -68,6 +68,21 @@ export default function Main() {
             </Marker>
           ))
         )}
+        <div
+          className="actual"
+          onClick={() => {
+            setLoading(true);
+            navigator.geolocation.getCurrentPosition((position) => {
+              setInitialPosition([
+                position.coords.latitude,
+                position.coords.longitude,
+              ]);
+            });
+            setLoading(false);
+          }}
+        >
+          <AiOutlineAim size={40} color={"#FFFFFF"} />
+        </div>
       </MapContainer>
     );
   }
@@ -86,25 +101,6 @@ export default function Main() {
           displayMap()
         )}
       </Map>
-      {loading ? (
-        <></>
-      ) : (
-        <div
-          className="actual"
-          onClick={() => {
-            setLoading(true);
-            navigator.geolocation.getCurrentPosition((position) => {
-              setInitialPosition([
-                position.coords.latitude,
-                position.coords.longitude,
-              ]);
-            });
-            setLoading(false);
-          }}
-        >
-          <AiOutlineAim size={40} color={"#FFFFFF"} />
-        </div>
-      )}
     </Body>
   );
 }
@@ -119,36 +115,6 @@ const Body = styled.div`
   width: 100%;
   min-height: 100vh;
   position: absolute;
-
-  .actual {
-    background-color: #b93c8b;
-    border-radius: 50%;
-    cursor: pointer;
-
-    width: 60px;
-    height: 60px;
-    z-index: 400;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    position: absolute;
-    bottom: 90px;
-    right: 70px;
-  }
-
-  .actual:hover {
-    width: 65px;
-    height: 65px;
-  }
-
-  @media screen and (max-width: 720px) {
-    .actual {
-      bottom: 110px;
-      right: 40px;
-    }
-  }
 `;
 
 const Map = styled.div`
@@ -182,6 +148,30 @@ const Map = styled.div`
     height: 85vh;
     border-radius: 5px;
     border: 3px solid #ffffff;
+    position: relative;
+  }
+
+  .actual {
+    background-color: #b93c8b;
+    border-radius: 50%;
+    cursor: pointer;
+
+    width: 60px;
+    height: 60px;
+    z-index: 400;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+  }
+
+  .actual:hover {
+    width: 65px;
+    height: 65px;
   }
 
   @media screen and (max-width: 720px) {
