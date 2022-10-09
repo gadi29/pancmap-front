@@ -1,8 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import { MapContainer, TileLayer, useMap, Popup, Marker } from "react-leaflet";
+import { MapContainer, TileLayer, Popup, Marker } from "react-leaflet";
 import { Icon } from "leaflet";
 import styled from "styled-components";
 import axios from "axios";
+import { AiOutlineAim } from "react-icons/ai";
 
 import PositionContext from "../contexts/PositionContext";
 
@@ -15,8 +16,7 @@ export default function Main() {
   const { position } = useContext(PositionContext);
   const [registers, setRegisters] = useState();
   const [loading, setLoading] = useState(true);
-  const CCACoord = [-27.582346, -48.504342];
-  const [initialPosition, setInitialPosition] = useState(null);
+  const [initialPosition, setInitialPosition] = useState(position);
   const point = new Icon({
     iconUrl: leaf,
     iconSize: [40, 40],
@@ -24,17 +24,7 @@ export default function Main() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(position);
-    if (position !== null) setInitialPosition(position);
-    else
-      navigator.geolocation.getCurrentPosition((position) => {
-        setInitialPosition([
-          position.coords.latitude,
-          position.coords.longitude,
-        ]);
-      });
-  }, [position]);
+  useEffect(() => {}, []);
 
   useEffect(() => {
     setLoading(true);
@@ -84,6 +74,19 @@ export default function Main() {
   return (
     <Body>
       <Map>{loading ? <h2>Carregando...</h2> : displayMap()}</Map>
+      <div
+        className="actual"
+        onClick={() =>
+          navigator.geolocation.getCurrentPosition((position) => {
+            setInitialPosition([
+              position.coords.latitude,
+              position.coords.longitude,
+            ]);
+          })
+        }
+      >
+        <AiOutlineAim size={40} color={"#FFFFFF"} />
+      </div>
     </Body>
   );
 }
@@ -98,6 +101,36 @@ const Body = styled.div`
   width: 100%;
   min-height: 100vh;
   position: absolute;
+
+  .actual {
+    background-color: #b93c8b;
+    border-radius: 50%;
+    cursor: pointer;
+
+    width: 60px;
+    height: 60px;
+    z-index: 400;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    bottom: 60px;
+    right: 60px;
+  }
+
+  .actual:hover {
+    width: 65px;
+    height: 65px;
+  }
+
+  @media screen and (max-width: 720px) {
+    .actual {
+      bottom: 45px;
+      right: 35px;
+    }
+  }
 `;
 
 const Map = styled.div`

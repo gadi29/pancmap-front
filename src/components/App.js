@@ -18,7 +18,7 @@ import SpeciePage from "./SpeciePage";
 import UserRegisters from "./UserRegisters";
 
 function App() {
-  const [position, setPosition] = useState(null);
+  const [position, setPosition] = useState([-27.582347, -48.504343]);
   let tokenStorage = localStorage.getItem("token");
 
   if (tokenStorage !== null) {
