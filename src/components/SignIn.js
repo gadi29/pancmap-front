@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
+import { ThreeDots } from "react-loader-spinner";
 
 import TokenContext from "../contexts/TokenContext";
 import { backUrl } from "../utils/constants";
@@ -53,7 +54,9 @@ export default function SignIn() {
             disabled={loading}
             required
           />
-          <button type="submit">{loading ? "Carregando..." : "Entrar"}</button>
+          <button type="submit">
+            {loading ? <ThreeDots width={50} color="#FFFFFF" /> : "Entrar"}
+          </button>
           <h3 onClick={() => navigate("/signup")}>
             Ainda não é registrado? Clique aqui e cadastre-se!
           </h3>
@@ -114,6 +117,10 @@ const Container = styled.div`
       margin-top: 20px;
       margin-bottom: 35px;
 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
       cursor: ${({ loading }) => (loading ? "initial" : "pointer")};
     }
 
@@ -121,10 +128,27 @@ const Container = styled.div`
       color: #ffffff;
       font-size: 15px;
       font-weight: 400;
+      text-align: center;
 
-      margin-top: 20px;
+      margin: 20px;
 
       cursor: ${({ loading }) => (loading ? "initial" : "pointer")};
+    }
+  }
+
+  @media screen and (max-width: 720px) {
+    form {
+      button {
+        width: 30%;
+      }
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    form {
+      button {
+        width: 40%;
+      }
     }
   }
 `;

@@ -131,7 +131,7 @@ const Body = styled.div`
 
   @media screen and (max-width: 720px) {
     .actual {
-      bottom: 95px;
+      bottom: 110px;
       right: 40px;
     }
   }
