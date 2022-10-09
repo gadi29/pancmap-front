@@ -103,8 +103,9 @@ export default function SpeciePage() {
   const { setPosition } = useContext(PositionContext);
   const { specieId } = useParams();
   const [specie, setSpecie] = useState();
-  const [registers, setRegisters] = useState();
-  const [loading, setLoading] = useState(true);
+  const [registers, setRegisters] = useState([]);
+  const [loadingSpecie, setLoadingSpecie] = useState(true);
+  const [loadingRegisters, setLoadingRegisters] = useState(true);
 
   const navigate = useNavigate();
 
@@ -114,6 +115,7 @@ export default function SpeciePage() {
     response
       .then((r) => {
         setSpecie({ ...r.data });
+        setLoadingSpecie(false);
       })
       .catch((e) => {
         alert(`Erro ${e.response.status}`);
@@ -121,13 +123,12 @@ export default function SpeciePage() {
   }, [specieId]);
 
   useEffect(() => {
-    setLoading(true);
     const response = axios.get(`${backUrl}/registers/${specieId}`);
 
     response
       .then((r) => {
         setRegisters([...r.data]);
-        setLoading(false);
+        setLoadingRegisters(false);
       })
       .catch((e) => {
         alert(`Erro ${e.response.status}`);
@@ -136,8 +137,8 @@ export default function SpeciePage() {
 
   return (
     <Body>
-      <Container loading={loading}>
-        {loading
+      <Container loading={loadingRegisters & loadingSpecie}>
+        {loadingRegisters & loadingSpecie
           ? "Carregando..."
           : SpeciePageLoaded(specie, registers, setPosition, navigate)}
       </Container>

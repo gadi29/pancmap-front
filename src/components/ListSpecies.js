@@ -4,6 +4,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { FaTrashAlt } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
+import { InfinitySpin } from "react-loader-spinner";
 
 import UserContext from "../contexts/UserContext";
 import TokenContext from "../contexts/TokenContext";
@@ -98,7 +99,6 @@ export default function ListSpecies() {
       })
       .catch((e) => {
         alert(`Erro ${e.response.status}`);
-        setLoading(false);
       });
   }, [state, user]);
 
@@ -108,7 +108,7 @@ export default function ListSpecies() {
         <h1>Lista de espécies cadastradas no sistema</h1>
         <Lista loading={loading} superuser={user.superuser}>
           {loading ? (
-            <h2>Carregando...</h2>
+            <InfinitySpin color="#a82b7a" />
           ) : (
             ListLoaded(
               token,
