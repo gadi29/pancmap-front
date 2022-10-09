@@ -7,6 +7,7 @@ import EditRegister from "./EditRegister";
 import EditSpecie from "./EditSpecie";
 import Header from "./Header";
 import ListSpecies from "./ListSpecies";
+import Main from "./Main";
 import NewRegister from "./NewRegister";
 
 import NewSpecie from "./NewSpecie";
@@ -40,6 +41,7 @@ function App() {
         <BrowserRouter>
           <Header />
           <Routes>
+            <Route path="/main" element={<Main />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<SignIn />} />
             <Route path="/new-specie" element={<NewSpecie />} />
