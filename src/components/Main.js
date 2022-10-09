@@ -89,7 +89,7 @@ export default function Main() {
 
   return (
     <Body>
-      <Map>
+      <Map loading={loading}>
         {loading ? (
           <ProgressBar
             width={150}
@@ -123,7 +123,7 @@ const Map = styled.div`
   margin-top: 100px;
   display: flex;
   justify-content: center;
-  align-items: ${(loading) => (loading ? "center" : "initial")};
+  align-items: ${({ loading }) => (loading ? "center" : "flex-start")};
 
   .top {
     display: flex;
@@ -145,7 +145,7 @@ const Map = styled.div`
 
   .leaflet-container {
     width: 98%;
-    height: 85vh;
+    height: 98%;
     border-radius: 5px;
     border: 3px solid #ffffff;
     position: relative;
@@ -174,9 +174,23 @@ const Map = styled.div`
     height: 65px;
   }
 
+  @media screen and (max-width: 1024px) {
+    .leaflet-container {
+      height: 93%;
+    }
+  }
+
+  @media screen and (max-width: 900px) {
+    .leaflet-container {
+      margin-top: 5px;
+      height: 89%;
+    }
+  }
+
   @media screen and (max-width: 720px) {
     .leaflet-container {
-      height: 78vh;
+      margin-top: 10px;
+      height: 85%;
     }
   }
 `;

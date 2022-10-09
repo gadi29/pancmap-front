@@ -211,7 +211,7 @@ const Container = styled.div`
   margin-top: 100px;
   display: flex;
   justify-content: center;
-  align-items: ${(loading) => (loading ? "center" : "flex-start")};
+  align-items: ${({ loading }) => (loading ? "center" : "flex-start")};
 
   form {
     width: 100%;

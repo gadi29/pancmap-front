@@ -263,7 +263,7 @@ const Container = styled.div`
   margin-top: 100px;
   display: flex;
   justify-content: center;
-  align-items: ${(loadingSpecie) => (loadingSpecie ? "center" : "initial")};
+  align-items: ${({ loadingSpecie }) => (loadingSpecie ? "center" : "initial")};
 
   form {
     width: 100%;
