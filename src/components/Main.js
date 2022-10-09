@@ -57,11 +57,14 @@ export default function Main() {
               icon={point}
             >
               <Popup>
-                <div onClick={() => navigate(`/specie/${register.specieId}`)}>
-                  <h2>{register.title}</h2>-<h4>{register.specieId}</h4>
+                <div
+                  className="top"
+                  onClick={() => navigate(`/specie/${register.specie.id}`)}
+                >
+                  <h2>{register.title}</h2>
+                  <h4>{register.specie.cientificName}</h4>
                 </div>
-
-                <h3>{register.observations}</h3>
+                <h3>Obs.: {register.observations}</h3>
               </Popup>
             </Marker>
           ))
@@ -96,6 +99,23 @@ const Map = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  .top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h2 {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    h4 {
+      font-style: italic;
+      margin-top: 3px;
+      margin-bottom: 7px;
+    }
+  }
 
   .leaflet-container {
     width: 98%;
