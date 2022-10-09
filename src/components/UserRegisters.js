@@ -4,6 +4,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { FaTrashAlt } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
+import { InfinitySpin } from "react-loader-spinner";
 
 import PositionContext from "../contexts/PositionContext";
 import UserContext from "../contexts/UserContext";
@@ -123,7 +124,7 @@ export default function UserRegisters() {
         <h1>Lista de seus registros</h1>
         <Lista loading={loading}>
           {loading ? (
-            <h2>Carregando...</h2>
+            <InfinitySpin color="#a82b7a" />
           ) : (
             ListLoaded(
               token,
