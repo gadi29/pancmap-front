@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import PositionContext from "../contexts/PositionContext";
 import TokenContext from "../contexts/TokenContext";
 import UserContext from "../contexts/UserContext";
 import EditRegister from "./EditRegister";
@@ -17,6 +18,7 @@ import SpeciePage from "./SpeciePage";
 import UserRegisters from "./UserRegisters";
 
 function App() {
+  const [position, setPosition] = useState(null);
   let tokenStorage = localStorage.getItem("token");
 
   if (tokenStorage !== null) {
@@ -38,24 +40,26 @@ function App() {
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <TokenContext.Provider value={{ token, setToken }}>
-        <BrowserRouter>
-          <Header />
-          <Routes>
-            <Route path="/main" element={<Main />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/login" element={<SignIn />} />
-            <Route path="/new-specie" element={<NewSpecie />} />
-            <Route path="/species" element={<ListSpecies />} />
-            <Route path="/specie/:specieId" element={<SpeciePage />} />
-            <Route path="/edit-specie/:specieId" element={<EditSpecie />} />
-            <Route path="/new-register" element={<NewRegister />} />
-            <Route path="/user-registers" element={<UserRegisters />} />
-            <Route
-              path="/edit-register/:registerId"
-              element={<EditRegister />}
-            />
-          </Routes>
-        </BrowserRouter>
+        <PositionContext.Provider value={{ position, setPosition }}>
+          <BrowserRouter>
+            <Header />
+            <Routes>
+              <Route path="/main" element={<Main />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/login" element={<SignIn />} />
+              <Route path="/new-specie" element={<NewSpecie />} />
+              <Route path="/species" element={<ListSpecies />} />
+              <Route path="/specie/:specieId" element={<SpeciePage />} />
+              <Route path="/edit-specie/:specieId" element={<EditSpecie />} />
+              <Route path="/new-register" element={<NewRegister />} />
+              <Route path="/user-registers" element={<UserRegisters />} />
+              <Route
+                path="/edit-register/:registerId"
+                element={<EditRegister />}
+              />
+            </Routes>
+          </BrowserRouter>
+        </PositionContext.Provider>
       </TokenContext.Provider>
     </UserContext.Provider>
   );

@@ -81,7 +81,7 @@ export default function Header() {
             <></>
           )}
         </div>
-        <h1>Panc Map</h1>
+        <h1 onClick={() => navigate("/main")}>Panc Map</h1>
         <div>
           {user.name !== "Visitante" ? (
             <>
@@ -120,6 +120,7 @@ const Top = styled.div`
     font-size: 45px;
     font-family: "Rubik Dirt", cursive !important;
     color: #ffffff;
+    cursor: pointer;
   }
 
   div {
