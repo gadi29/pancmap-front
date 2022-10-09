@@ -146,19 +146,11 @@ const Top = styled.div`
     align-items: center;
     justify-content: center;
 
-    h2 {
-      height: 99%;
-      font-size: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
-
+    h2,
     h3 {
       height: 99%;
+      margin: 0 15px;
       font-size: 18px;
-      margin-right: 15px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -178,7 +170,7 @@ const Top = styled.div`
     }
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 900px) {
     .center {
       h1 {
         font-size: 40px;
@@ -262,7 +254,7 @@ const LateralBar = styled.div`
     width: 60%;
   }
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 900px) {
     display: none;
   }
 

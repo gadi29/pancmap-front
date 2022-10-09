@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -7,6 +7,21 @@ import { backUrl } from "../utils/constants";
 
 export default function NewSpecie() {
   const { user } = useContext(UserContext);
+  const [specie, setSpecie] = useState({
+    cientificName: "",
+    generalCharacteristics: "",
+    curiosities: "",
+    leafMorfology: "",
+    flowerMorfology: "",
+    fruitMorfology: "",
+    undergroundMorfology: "",
+    edibleParts: "",
+    leafPicturePath: "",
+    flowerPicturePath: "",
+    fruitPicturePath: "",
+    undergroundPicturePath: "",
+  });
+  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -19,88 +34,127 @@ export default function NewSpecie() {
   return (
     <Body>
       <Container>
-        <form
-          id="form"
-          action={`${backUrl}/specie`}
-          method="post"
-          encType="multipart/form-data"
-        >
+        <form>
           <input
-            id="cientific-name"
-            name="cientific-name"
             type="text"
-            placeholder="Nome científico"
+            value={specie.cientificName}
+            onChange={(e) =>
+              setSpecie({ ...specie, cientificName: e.target.value })
+            }
+            placeholder="Nome científico*"
+            disabled={loading}
+            required
           ></input>
           <input
-            id="general-characteristics"
-            name="general-characteristics"
             type="text"
-            placeholder="Características gerais da espécie"
+            value={specie.generalCharacteristics}
+            onChange={(e) =>
+              setSpecie({ ...specie, generalCharacteristics: e.target.value })
+            }
+            placeholder="Características gerais da espécie*"
+            disabled={loading}
+            required
           ></input>
           <input
-            id="curiosities"
-            name="curiosities"
             type="text"
+            value={specie.curiosities}
+            onChange={(e) =>
+              setSpecie({ ...specie, curiosities: e.target.value })
+            }
             placeholder="Curiosidades"
+            disabled={loading}
+            required
           ></input>
           <input
-            id="leaf-morfology"
-            name="leaf-morfology"
             type="text"
-            placeholder="Morfologia da folha"
+            value={specie.leafMorfology}
+            onChange={(e) =>
+              setSpecie({ ...specie, leafMorfology: e.target.value })
+            }
+            placeholder="Morfologia da folha*"
+            disabled={loading}
+            required
           ></input>
           <input
-            id="flower-morfology"
-            name="flower-morfology"
             type="text"
-            placeholder="Morfologia da flor"
+            value={specie.flowerMorfology}
+            onChange={(e) =>
+              setSpecie({ ...specie, flowerMorfology: e.target.value })
+            }
+            placeholder="Morfologia da flor*"
+            disabled={loading}
+            required
           ></input>
           <input
-            id="fruit-morfology"
-            name="fruit-morfology"
             type="text"
+            value={specie.fruitMorfology}
+            onChange={(e) =>
+              setSpecie({ ...specie, fruitMorfology: e.target.value })
+            }
             placeholder="Morfologia do fruto"
+            disabled={loading}
+            required
           ></input>
           <input
-            id="underground-morfology"
-            name="underground-morfology"
             type="text"
+            value={specie.undergroundMorfology}
+            onChange={(e) =>
+              setSpecie({ ...specie, undergroundMorfology: e.target.value })
+            }
             placeholder="Morfologia do órgão subterrâneo"
+            disabled={loading}
+            required
           ></input>
           <input
-            id="edible-parts"
-            name="edible-parts"
             type="text"
-            placeholder="Partes comestíveis"
+            value={specie.edibleParts}
+            onChange={(e) =>
+              setSpecie({ ...specie, edibleParts: e.target.value })
+            }
+            placeholder="Partes comestíveis*"
+            disabled={loading}
+            required
           ></input>
-          <div className="images">
-            <div className="top">
-              <div>
-                <label htmlFor="leaf-pic">Imagem da folha:</label>
-                <input id="leaf-pic" name="leaf-pic" type="file"></input>
-              </div>
-              <div>
-                <label htmlFor="flower-pic">Imagem da flor:</label>
-                <input id="flower-pic" name="flower-pic" type="file"></input>
-              </div>
-            </div>
-            <div className="bottom">
-              <div>
-                <label htmlFor="fruit-pic">Imagem do fruto:</label>
-                <input id="fruit-pic" name="fruit-pic" type="file"></input>
-              </div>
-              <div>
-                <label htmlFor="underground-pic">
-                  Imagem do órgão subterrâneo:
-                </label>
-                <input
-                  id="underground-pic"
-                  name="underground-pic"
-                  type="file"
-                ></input>
-              </div>
-            </div>
-          </div>
+          <input
+            type="text"
+            value={specie.leafPicturePath}
+            onChange={(e) =>
+              setSpecie({ ...specie, leafPicturePath: e.target.value })
+            }
+            placeholder="Imagem da folha (URL)*"
+            disabled={loading}
+            required
+          ></input>
+          <input
+            type="text"
+            value={specie.flowerPicturePath}
+            onChange={(e) =>
+              setSpecie({ ...specie, flowerPicturePath: e.target.value })
+            }
+            placeholder="Imagem da flor (URL)*"
+            disabled={loading}
+            required
+          ></input>
+          <input
+            type="text"
+            value={specie.fruitPicturePath}
+            onChange={(e) =>
+              setSpecie({ ...specie, fruitPicturePath: e.target.value })
+            }
+            placeholder="Imagem do fruto (URL)"
+            disabled={loading}
+            required
+          ></input>
+          <input
+            type="text"
+            value={specie.undergroundPicturePath}
+            onChange={(e) =>
+              setSpecie({ ...specie, undergroundPicturePath: e.target.value })
+            }
+            placeholder="Imagem do órgão subterrâneo (URL)"
+            disabled={loading}
+            required
+          ></input>
           <button type="submit">Submeter</button>
         </form>
       </Container>
@@ -131,6 +185,7 @@ const Container = styled.div`
     align-items: center;
 
     input {
+      background-color: #ffffff;
       border: 2px solid #5e053d;
       border-radius: 7px;
       outline: none;
