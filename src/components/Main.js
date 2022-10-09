@@ -91,14 +91,16 @@ export default function Main() {
       ) : (
         <div
           className="actual"
-          onClick={() =>
+          onClick={() => {
+            setLoading(true);
             navigator.geolocation.getCurrentPosition((position) => {
               setInitialPosition([
                 position.coords.latitude,
                 position.coords.longitude,
               ]);
-            })
-          }
+            });
+            setLoading(false);
+          }}
         >
           <AiOutlineAim size={40} color={"#FFFFFF"} />
         </div>
