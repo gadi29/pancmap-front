@@ -57,12 +57,11 @@ export default function Main() {
               icon={point}
             >
               <Popup>
-                <div
-                  className="top"
-                  onClick={() => navigate(`/specie/${register.specie.id}`)}
-                >
+                <div className="top">
                   <h2>{register.title}</h2>
-                  <h4>{register.specie.cientificName}</h4>
+                  <h4 onClick={() => navigate(`/specie/${register.specie.id}`)}>
+                    {register.specie.cientificName}
+                  </h4>
                 </div>
                 <h3>Obs.: {register.observations}</h3>
               </Popup>
@@ -114,6 +113,7 @@ const Map = styled.div`
       font-style: italic;
       margin-top: 3px;
       margin-bottom: 7px;
+      cursor: pointer;
     }
   }
 
