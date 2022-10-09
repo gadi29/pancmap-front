@@ -44,7 +44,7 @@ function App() {
           <BrowserRouter>
             <Header />
             <Routes>
-              <Route path="/main" element={<Main />} />
+              <Route path="/" element={<Main />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/login" element={<SignIn />} />
               <Route path="/new-specie" element={<NewSpecie />} />

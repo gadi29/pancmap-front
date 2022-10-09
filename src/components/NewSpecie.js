@@ -1,12 +1,15 @@
+import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import UserContext from "../contexts/UserContext";
+import TokenContext from "../contexts/TokenContext";
 import { backUrl } from "../utils/constants";
 
 export default function NewSpecie() {
   const { user } = useContext(UserContext);
+  const { token } = useContext(TokenContext);
   const [specie, setSpecie] = useState({
     cientificName: "",
     generalCharacteristics: "",
@@ -21,7 +24,13 @@ export default function NewSpecie() {
     fruitPicturePath: "",
     undergroundPicturePath: "",
   });
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
 
   const navigate = useNavigate();
 
@@ -31,10 +40,23 @@ export default function NewSpecie() {
     }
   }, [user]);
 
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      await axios.post(`${backUrl}/specie`, { ...specie }, config);
+      setLoading(false);
+      navigate("/species");
+    } catch (error) {
+      alert(`Erro ${error}`);
+    }
+  }
+
   return (
     <Body>
       <Container>
-        <form>
+        <form onSubmit={handleSubmit}>
           <input
             type="text"
             value={specie.cientificName}
@@ -63,7 +85,6 @@ export default function NewSpecie() {
             }
             placeholder="Curiosidades"
             disabled={loading}
-            required
           ></input>
           <input
             type="text"
@@ -93,7 +114,6 @@ export default function NewSpecie() {
             }
             placeholder="Morfologia do fruto"
             disabled={loading}
-            required
           ></input>
           <input
             type="text"
@@ -103,7 +123,6 @@ export default function NewSpecie() {
             }
             placeholder="Morfologia do órgão subterrâneo"
             disabled={loading}
-            required
           ></input>
           <input
             type="text"
@@ -143,7 +162,6 @@ export default function NewSpecie() {
             }
             placeholder="Imagem do fruto (URL)"
             disabled={loading}
-            required
           ></input>
           <input
             type="text"
@@ -153,9 +171,10 @@ export default function NewSpecie() {
             }
             placeholder="Imagem do órgão subterrâneo (URL)"
             disabled={loading}
-            required
           ></input>
-          <button type="submit">Submeter</button>
+          <button type="submit" disabled={loading}>
+            {loading ? "Carregando..." : "Submeter"}
+          </button>
         </form>
       </Container>
     </Body>
@@ -185,7 +204,6 @@ const Container = styled.div`
     align-items: center;
 
     input {
-      background-color: #ffffff;
       border: 2px solid #5e053d;
       border-radius: 7px;
       outline: none;

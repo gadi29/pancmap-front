@@ -83,7 +83,7 @@ export default function Header() {
             <></>
           )}
         </div>
-        <div className="center" onClick={() => navigate("/main")}>
+        <div className="center" onClick={() => navigate("/")}>
           <img src={logo} alt="logo" />
           <h1>Panc Map</h1>
         </div>

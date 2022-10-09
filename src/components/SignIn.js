@@ -25,7 +25,7 @@ export default function SignIn() {
       localStorage.setItem("user", JSON.stringify(data.user));
       setUser(data.user);
       setLoading(false);
-      navigate("/main");
+      navigate("/");
       window.location.reload();
     } catch (error) {
       alert("E-mail ou senha incorretos!");
