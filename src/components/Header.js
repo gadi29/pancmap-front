@@ -21,7 +21,7 @@ export default function Header() {
         "user",
         JSON.stringify({ name: "Visitante", superuser: false })
       );
-      navigate("/main");
+      navigate("/");
       window.location.reload();
     }
   }
@@ -119,7 +119,7 @@ const Top = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 2;
+  z-index: 5000;
 
   .center {
     display: flex;

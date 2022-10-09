@@ -120,8 +120,8 @@ const Body = styled.div`
     align-items: center;
 
     position: absolute;
-    bottom: 60px;
-    right: 60px;
+    bottom: 90px;
+    right: 70px;
   }
 
   .actual:hover {
@@ -131,7 +131,7 @@ const Body = styled.div`
 
   @media screen and (max-width: 720px) {
     .actual {
-      bottom: 75px;
+      bottom: 95px;
       right: 40px;
     }
   }
@@ -140,9 +140,8 @@ const Body = styled.div`
 const Map = styled.div`
   width: 100%;
   height: calc(100vh - 100px);
-  margin-top: 90px;
+  margin-top: 100px;
   display: flex;
-  align-items: center;
   justify-content: center;
 
   .top {
