@@ -87,11 +87,9 @@ export default function SpeciePage() {
     response
       .then((r) => {
         setSpecie({ ...r.data });
-        setLoading(false);
       })
       .catch((e) => {
         alert(`Erro ${e.response.status}`);
-        setLoading(false);
       });
   }, [specieId]);
 

@@ -271,7 +271,7 @@ const Lista = styled.div`
   }
 
   @media screen and (max-width: 900px) {
-    div {
+    .register {
       .icons {
         width: 10%;
       }
@@ -279,7 +279,7 @@ const Lista = styled.div`
   }
 
   @media screen and (max-width: 720px) {
-    div {
+    .register {
       .icons {
         width: 15%;
       }
@@ -287,10 +287,13 @@ const Lista = styled.div`
   }
 
   @media screen and (max-width: 480px) {
-    div {
+    .register {
       h2 {
         padding-right: 20px;
         text-align: center;
+      }
+      h3 {
+        display: none;
       }
       .icons {
         width: 23%;
