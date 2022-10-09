@@ -57,7 +57,7 @@ function ListLoaded(
                   Number(register.latitude),
                   Number(register.longitude),
                 ]);
-                navigate("/main");
+                navigate("/");
               }}
               className="text"
             >
