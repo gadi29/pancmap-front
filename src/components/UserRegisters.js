@@ -109,6 +109,7 @@ export default function UserRegisters() {
             ListLoaded(token, list, setLoading, state, setState, navigate)
           )}
         </Lista>
+        <button onClick={() => navigate("/new-register")}>Novo Registro</button>
       </Container>
     </Body>
   );
