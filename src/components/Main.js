@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { MapContainer, TileLayer, Popup, Marker } from "react-leaflet";
+import { MapContainer, TileLayer, useMap, Popup, Marker } from "react-leaflet";
 import { Icon } from "leaflet";
 import styled from "styled-components";
 import axios from "axios";
@@ -12,9 +12,8 @@ import { useNavigate } from "react-router-dom";
 export default function Main() {
   const [registers, setRegisters] = useState();
   const [loading, setLoading] = useState(true);
-  const [initialPosition, setInitialPosition] = useState([
-    -27.582346, -48.504342,
-  ]);
+  const CCACoord = [-27.582346, -48.504342];
+  const [initialPosition, setInitialPosition] = useState(CCACoord);
   const point = new Icon({
     iconUrl: leaf,
     iconSize: [40, 40],
@@ -23,6 +22,13 @@ export default function Main() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      setInitialPosition([position.coords.latitude, position.coords.longitude]);
+    });
+  }, []);
+
+  useEffect(() => {
+    setLoading(true);
     const response = axios.get(`${backUrl}/registers`);
 
     response
@@ -31,57 +37,42 @@ export default function Main() {
         setLoading(false);
       })
       .catch((e) => alert(`Erro ${e.response.status}`));
-  }, []);
+  }, [initialPosition]);
 
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      setInitialPosition([position.coords.latitude, position.coords.longitude]);
-    });
-  }, []);
+  function displayMap() {
+    return (
+      <MapContainer center={initialPosition} zoom={16} scrollWheelZoom={true}>
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+          url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+          subdomains={"abcd"}
+          maxZoom={20}
+        />
+        {loading ? (
+          <></>
+        ) : (
+          registers.map((register) => (
+            <Marker
+              position={[Number(register.latitude), Number(register.longitude)]}
+              icon={point}
+            >
+              <Popup>
+                <div onClick={() => navigate(`/specie/${register.specieId}`)}>
+                  <h2>{register.title}</h2>-<h4>{register.specieId}</h4>
+                </div>
+
+                <h3>{register.observations}</h3>
+              </Popup>
+            </Marker>
+          ))
+        )}
+      </MapContainer>
+    );
+  }
 
   return (
     <Body>
-      <Map>
-        {!loading ? (
-          <MapContainer
-            center={initialPosition}
-            zoom={16}
-            scrollWheelZoom={true}
-          >
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-              url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
-              subdomains={"abcd"}
-              maxZoom={20}
-            />
-            {loading ? (
-              <></>
-            ) : (
-              registers.map((register) => (
-                <Marker
-                  position={[
-                    Number(register.latitude),
-                    Number(register.longitude),
-                  ]}
-                  icon={point}
-                >
-                  <Popup>
-                    <div
-                      onClick={() => navigate(`/specie/${register.specieId}`)}
-                    >
-                      <h2>{register.title}</h2>-<h4>{register.specieId}</h4>
-                    </div>
-
-                    <h3>{register.observations}</h3>
-                  </Popup>
-                </Marker>
-              ))
-            )}
-          </MapContainer>
-        ) : (
-          <h2>Carregando...</h2>
-        )}
-      </Map>
+      <Map>{loading ? <h2>Carregando...</h2> : displayMap()}</Map>
     </Body>
   );
 }
@@ -100,6 +91,7 @@ const Body = styled.div`
 
 const Map = styled.div`
   width: 100%;
+  height: calc(100vh - 100px);
   margin-top: 100px;
   display: flex;
   align-items: center;
@@ -107,6 +99,6 @@ const Map = styled.div`
 
   .leaflet-container {
     width: 98%;
-    height: 87vh;
+    height: 85vh;
   }
 `;
