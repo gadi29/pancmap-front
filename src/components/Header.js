@@ -1,11 +1,13 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 import UserContext from "../contexts/UserContext";
 
 export default function Header() {
   const { user } = useContext(UserContext);
+  const [showBar, setShowBar] = useState(false);
   const navigate = useNavigate();
 
   function handleSignout(e) {
@@ -23,32 +25,78 @@ export default function Header() {
   }
 
   return (
-    <Top>
-      <h1>Panc Map</h1>
-      <div>
-        <h2 onClick={() => navigate("/species")}>Espécies</h2>
-        {user.name !== "Visitante" ? (
-          <>
-            <h2 onClick={() => navigate("/user-registers")}>Seus registros</h2>
-          </>
-        ) : (
-          <></>
-        )}
-      </div>
-      <div>
-        {user.name !== "Visitante" ? (
-          <>
-            <h2 onClick={() => navigate("/new-register")}>Novo registro</h2>
-            <h2 onClick={handleSignout}>Sair</h2>
-          </>
-        ) : (
-          <>
-            <h2 onClick={() => navigate("/login")}>Login</h2>
-            <h2 onClick={() => navigate("/signup")}>Cadastre-se</h2>
-          </>
-        )}
-      </div>
-    </Top>
+    <>
+      <LateralBar showBar={showBar}>
+        <div className="bar">
+          <h2
+            onClick={() => {
+              navigate("/species");
+              setShowBar(!showBar);
+            }}
+          >
+            Espécies
+          </h2>
+          {user.name !== "Visitante" ? (
+            <>
+              <h2
+                onClick={() => {
+                  navigate("/user-registers");
+                  setShowBar(!showBar);
+                }}
+              >
+                Seus registros
+              </h2>
+              <h2
+                onClick={() => {
+                  navigate("/new-register");
+                  setShowBar(!showBar);
+                }}
+              >
+                Novo registro
+              </h2>
+            </>
+          ) : (
+            <></>
+          )}
+        </div>
+        <div className="back" onClick={() => setShowBar(!showBar)}></div>
+      </LateralBar>
+      <Top>
+        <div>
+          <div className="lateral">
+            <GiHamburgerMenu
+              onClick={() => setShowBar(!showBar)}
+              size={25}
+              style={{ cursor: "pointer" }}
+            />
+          </div>
+          <h2 onClick={() => navigate("/species")}>Espécies</h2>
+          {user.name !== "Visitante" ? (
+            <>
+              <h2 onClick={() => navigate("/user-registers")}>
+                Seus registros
+              </h2>
+            </>
+          ) : (
+            <></>
+          )}
+        </div>
+        <h1>Panc Map</h1>
+        <div>
+          {user.name !== "Visitante" ? (
+            <>
+              <h2 onClick={() => navigate("/new-register")}>Novo registro</h2>
+              <h3 onClick={handleSignout}>Sair</h3>
+            </>
+          ) : (
+            <>
+              <h3 onClick={() => navigate("/login")}>Login</h3>
+              <h2 onClick={() => navigate("/signup")}>Cadastre-se</h2>
+            </>
+          )}
+        </div>
+      </Top>
+    </>
   );
 }
 
@@ -71,9 +119,7 @@ const Top = styled.div`
   h1 {
     font-size: 45px;
     font-family: "Rubik Dirt", cursive !important;
-    position: fixed;
-    top: 15px;
-    left: 42%;
+    color: #ffffff;
   }
 
   div {
@@ -90,11 +136,73 @@ const Top = styled.div`
       cursor: pointer;
     }
 
-    h2:hover {
+    h3 {
+      height: 99%;
+      font-size: 18px;
+      margin-left: 15px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    h2:hover,
+    h3:hover {
       border-bottom: 5px solid #ffffff;
       border-radius: 3px;
       font-size: 19px;
       font-weight: 600;
     }
+
+    .lateral {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    div {
+      h2 {
+        display: none;
+      }
+
+      .lateral {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+`;
+
+const LateralBar = styled.div`
+  display: ${({ showBar }) => (showBar ? "flex" : "none")};
+  width: 100%;
+  height: calc(100vh - 80px);
+  z-index: 2;
+  position: fixed;
+  top: 80px;
+  left: 0;
+
+  .bar {
+    background-color: #a82b7a;
+    width: 25%;
+
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    h2 {
+      color: #ffffff;
+      font-size: 18px;
+      margin-top: 25px;
+      margin-left: 15px;
+      cursor: pointer;
+    }
+  }
+
+  .back {
+    width: 75%;
+  }
+
+  @media screen and (min-width: 768px) {
+    display: none;
   }
 `;
