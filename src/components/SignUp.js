@@ -74,9 +74,10 @@ export default function SignUp() {
           <button type="submit">
             {loading ? <ThreeDots width={50} color="#FFFFFF" /> : "Entrar"}
           </button>
-          <h3 onClick={() => navigate("/login")}>
-            Já está cadastrado? Clique aqui e faça seu login!
-          </h3>
+          <div onClick={() => navigate("/login")} className="to-login">
+            <h3>Já está cadastrado?</h3>
+            <h3>Clique aqui e faça seu login!</h3>
+          </div>
         </form>
       </Container>
     </Body>
@@ -141,15 +142,22 @@ const Container = styled.div`
       cursor: ${({ loading }) => (loading ? "initial" : "pointer")};
     }
 
-    h3 {
-      color: #ffffff;
-      font-size: 15px;
-      font-weight: 400;
-      text-align: center;
-
+    .to-login {
       margin: 20px;
+      display: flex;
 
-      cursor: ${({ loading }) => (loading ? "initial" : "pointer")};
+      h3 {
+        color: #ffffff;
+        font-size: 15px;
+        font-weight: 400;
+        text-align: center;
+
+        cursor: ${({ loading }) => (loading ? "initial" : "pointer")};
+      }
+
+      h3:first-of-type {
+        margin-right: 5px;
+      }
     }
   }
 
@@ -165,6 +173,14 @@ const Container = styled.div`
     form {
       button {
         width: 40%;
+      }
+
+      .to-login {
+        flex-direction: column;
+
+        h3:first-of-type {
+          margin-right: 0;
+        }
       }
     }
   }
