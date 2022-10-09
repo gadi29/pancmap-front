@@ -86,7 +86,7 @@ function SpeciePageLoaded(specie, registers, setPosition, navigate) {
                       Number(register.latitude),
                       Number(register.longitude),
                     ]);
-                    navigate("/main");
+                    navigate("/");
                   }}
                 >
                   {register.title}
