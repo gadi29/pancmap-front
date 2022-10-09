@@ -60,6 +60,7 @@ export default function NewSpecie() {
         <form onSubmit={handleSubmit}>
           <input
             type="text"
+            minLength={3}
             value={specie.cientificName}
             onChange={(e) =>
               setSpecie({ ...specie, cientificName: e.target.value })
@@ -70,6 +71,8 @@ export default function NewSpecie() {
           ></input>
           <input
             type="text"
+            minLength={10}
+            maxLength={500}
             value={specie.generalCharacteristics}
             onChange={(e) =>
               setSpecie({ ...specie, generalCharacteristics: e.target.value })
@@ -80,6 +83,7 @@ export default function NewSpecie() {
           ></input>
           <input
             type="text"
+            maxLength={250}
             value={specie.curiosities}
             onChange={(e) =>
               setSpecie({ ...specie, curiosities: e.target.value })
@@ -89,6 +93,8 @@ export default function NewSpecie() {
           ></input>
           <input
             type="text"
+            minLength={10}
+            maxLength={200}
             value={specie.leafMorfology}
             onChange={(e) =>
               setSpecie({ ...specie, leafMorfology: e.target.value })
@@ -99,6 +105,8 @@ export default function NewSpecie() {
           ></input>
           <input
             type="text"
+            minLength={10}
+            maxLength={200}
             value={specie.flowerMorfology}
             onChange={(e) =>
               setSpecie({ ...specie, flowerMorfology: e.target.value })
@@ -109,6 +117,7 @@ export default function NewSpecie() {
           ></input>
           <input
             type="text"
+            maxLength={200}
             value={specie.fruitMorfology}
             onChange={(e) =>
               setSpecie({ ...specie, fruitMorfology: e.target.value })
@@ -118,6 +127,7 @@ export default function NewSpecie() {
           ></input>
           <input
             type="text"
+            maxLength={200}
             value={specie.undergroundMorfology}
             onChange={(e) =>
               setSpecie({ ...specie, undergroundMorfology: e.target.value })
@@ -127,6 +137,8 @@ export default function NewSpecie() {
           ></input>
           <input
             type="text"
+            minLength={3}
+            maxLength={100}
             value={specie.edibleParts}
             onChange={(e) =>
               setSpecie({ ...specie, edibleParts: e.target.value })
@@ -136,7 +148,7 @@ export default function NewSpecie() {
             required
           ></input>
           <input
-            type="text"
+            type="url"
             value={specie.leafPicturePath}
             onChange={(e) =>
               setSpecie({ ...specie, leafPicturePath: e.target.value })
@@ -146,7 +158,7 @@ export default function NewSpecie() {
             required
           ></input>
           <input
-            type="text"
+            type="url"
             value={specie.flowerPicturePath}
             onChange={(e) =>
               setSpecie({ ...specie, flowerPicturePath: e.target.value })
@@ -156,7 +168,7 @@ export default function NewSpecie() {
             required
           ></input>
           <input
-            type="text"
+            type="url"
             value={specie.fruitPicturePath}
             onChange={(e) =>
               setSpecie({ ...specie, fruitPicturePath: e.target.value })
@@ -165,7 +177,7 @@ export default function NewSpecie() {
             disabled={loading}
           ></input>
           <input
-            type="text"
+            type="url"
             value={specie.undergroundPicturePath}
             onChange={(e) =>
               setSpecie({ ...specie, undergroundPicturePath: e.target.value })
@@ -215,6 +227,11 @@ const Container = styled.div`
       height: 50px;
       margin-bottom: 15px;
       padding-left: 10px;
+    }
+
+    input:invalid {
+      background-color: #ffeded;
+      border: 2px solid #d90000;
     }
 
     button {
