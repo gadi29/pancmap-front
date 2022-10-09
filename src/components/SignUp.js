@@ -39,6 +39,7 @@ export default function SignUp() {
         <form onSubmit={handleSignup}>
           <input
             type="text"
+            minLength={3}
             value={user.name}
             onChange={(e) => setUser({ ...user, name: e.target.value })}
             placeholder="Nome de usuário"
