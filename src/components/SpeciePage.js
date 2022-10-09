@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import { backUrl } from "../utils/constants";
 
-function SpeciePageLoaded(specie) {
+function SpeciePageLoaded(specie, registers) {
   return (
     <Main>
       <Top>
@@ -59,6 +59,16 @@ function SpeciePageLoaded(specie) {
             <h3>Partes comestíveis</h3>
             <h4>{specie.edibleParts}</h4>
           </div>
+          {registers.length === 0 ? (
+            <></>
+          ) : (
+            <div className="registers">
+              <h3>Lista de registros da espécie</h3>
+              {registers.map((register) => (
+                <h4>{register.title}</h4>
+              ))}
+            </div>
+          )}
         </Right>
       </Center>
     </Main>
@@ -68,6 +78,7 @@ function SpeciePageLoaded(specie) {
 export default function SpeciePage() {
   const { specieId } = useParams();
   const [specie, setSpecie] = useState();
+  const [registers, setRegisters] = useState();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -84,10 +95,25 @@ export default function SpeciePage() {
       });
   }, [specieId]);
 
+  useEffect(() => {
+    setLoading(true);
+    const response = axios.get(`${backUrl}/registers/${specieId}`);
+
+    response
+      .then((r) => {
+        setRegisters([...r.data]);
+        setLoading(false);
+      })
+      .catch((e) => {
+        alert(`Erro ${e.response.status}`);
+        setLoading(false);
+      });
+  }, [specieId]);
+
   return (
     <Body>
       <Container loading={loading}>
-        {specie ? SpeciePageLoaded(specie) : "Carregando..."}
+        {specie ? SpeciePageLoaded(specie, registers) : "Carregando..."}
       </Container>
     </Body>
   );
@@ -225,6 +251,13 @@ const Right = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  .registers {
+    h4 {
+      font-size: 18px;
+      margin-top: 10px;
+    }
   }
 
   @media screen and (max-width: 768px) {
