@@ -98,7 +98,7 @@ export default function Main() {
             barColor="#FFFFFF"
           />
         ) : (
-          displayMap()
+          displayMap(setLoading, setInitialPosition)
         )}
       </Map>
     </Body>
