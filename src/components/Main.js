@@ -4,6 +4,7 @@ import { Icon } from "leaflet";
 import styled from "styled-components";
 import axios from "axios";
 import { AiOutlineAim } from "react-icons/ai";
+import { ProgressBar } from "react-loader-spinner";
 
 import PositionContext from "../contexts/PositionContext";
 
@@ -73,7 +74,18 @@ export default function Main() {
 
   return (
     <Body>
-      <Map>{loading ? <h2>Carregando...</h2> : displayMap()}</Map>
+      <Map>
+        {loading ? (
+          <ProgressBar
+            width={150}
+            height={150}
+            borderColor="#b93c8b"
+            barColor="#FFFFFF"
+          />
+        ) : (
+          displayMap()
+        )}
+      </Map>
       {loading ? (
         <></>
       ) : (
@@ -143,6 +155,7 @@ const Map = styled.div`
   margin-top: 100px;
   display: flex;
   justify-content: center;
+  align-items: ${(loading) => (loading ? "center" : "initial")};
 
   .top {
     display: flex;
