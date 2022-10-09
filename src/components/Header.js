@@ -5,6 +5,8 @@ import { GiHamburgerMenu } from "react-icons/gi";
 
 import UserContext from "../contexts/UserContext";
 
+import logo from "../assets/images/logo.png";
+
 export default function Header() {
   const { user } = useContext(UserContext);
   const [showBar, setShowBar] = useState(false);
@@ -62,7 +64,7 @@ export default function Header() {
         <div className="back" onClick={() => setShowBar(!showBar)}></div>
       </LateralBar>
       <Top>
-        <div>
+        <div className="left">
           <div className="lateral">
             <GiHamburgerMenu
               onClick={() => setShowBar(!showBar)}
@@ -81,8 +83,11 @@ export default function Header() {
             <></>
           )}
         </div>
-        <h1 onClick={() => navigate("/main")}>Panc Map</h1>
-        <div>
+        <div className="center">
+          <img src={logo} alt="logo" />
+          <h1 onClick={() => navigate("/main")}>Panc Map</h1>
+        </div>
+        <div className="right">
           {user.name !== "Visitante" ? (
             <>
               <h2 onClick={() => navigate("/new-register")}>Novo registro</h2>
@@ -116,33 +121,47 @@ const Top = styled.div`
   left: 0;
   z-index: 2;
 
-  h1 {
-    font-size: 45px;
-    font-family: "Rubik Dirt", cursive !important;
-    color: #ffffff;
-    cursor: pointer;
+  .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+      font-size: 45px;
+      font-weight: 100;
+      color: #ffffff;
+      cursor: pointer;
+    }
+
+    img {
+      width: 75px;
+      margin-right: 10px;
+    }
   }
 
-  div {
+  .left,
+  .right {
     height: 100%;
     display: flex;
     align-items: center;
+    justify-content: center;
 
     h2 {
       height: 99%;
       font-size: 18px;
-      margin-left: 15px;
       display: flex;
       align-items: center;
+      justify-content: center;
       cursor: pointer;
     }
 
     h3 {
       height: 99%;
       font-size: 18px;
-      margin-left: 15px;
+      margin-right: 15px;
       display: flex;
       align-items: center;
+      justify-content: center;
       cursor: pointer;
     }
 
@@ -160,7 +179,8 @@ const Top = styled.div`
   }
 
   @media screen and (max-width: 768px) {
-    div {
+    .left,
+    .right {
       h2 {
         display: none;
       }
@@ -179,7 +199,18 @@ const Top = styled.div`
   }
 
   @media screen and (max-width: 480px) {
-    div {
+    .center {
+      h1 {
+        display: none;
+      }
+
+      img {
+        margin-right: 0;
+      }
+    }
+
+    .left,
+    .right {
       h3 {
         font-size: 16px;
       }

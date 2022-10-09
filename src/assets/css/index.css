@@ -1,7 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100;400;600&family=Rubik+Dirt&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100;400;600&display=swap");
 
 * {
-  box-sizing: border-box;
+  box-sizing: border-box !important;
   font-family: "Raleway", sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
