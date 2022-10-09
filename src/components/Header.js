@@ -17,6 +17,7 @@ export default function Header() {
         "user",
         JSON.stringify({ name: "Visitante", superuser: false })
       );
+      navigate("/main");
       window.location.reload();
     }
   }

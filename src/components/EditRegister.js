@@ -44,11 +44,9 @@ export default function EditRegister() {
           observations: r.data.observations,
         });
         setSpecie({ id: r.data.specie.id, name: r.data.specie.cientificName });
-        setLoading(false);
       })
       .catch((e) => {
         alert(`Erro ${e.response.status}`);
-        setLoading(false);
       });
   }, [registerId]);
 
