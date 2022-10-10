@@ -6,28 +6,22 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import UserContext from "../contexts/UserContext";
 
 import logo from "../assets/images/logo.png";
+import Modal from "./Modal";
 
 export default function Header() {
   const { user } = useContext(UserContext);
   const [showBar, setShowBar] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const data = { key: "SIGNOUT" };
   const navigate = useNavigate();
-
-  function handleSignout(e) {
-    e.preventDefault();
-
-    if (window.confirm("Você realmente deseja se deslogar do sistema?")) {
-      localStorage.removeItem("token");
-      localStorage.setItem(
-        "user",
-        JSON.stringify({ name: "Visitante", superuser: false })
-      );
-      navigate("/");
-      window.location.reload();
-    }
-  }
 
   return (
     <>
+      <Modal
+        data={data}
+        modalIsOpen={modalIsOpen}
+        setModalIsOpen={setModalIsOpen}
+      />
       <LateralBar showBar={showBar}>
         <div className="bar">
           <h2
@@ -91,7 +85,7 @@ export default function Header() {
           {user.name !== "Visitante" ? (
             <>
               <h2 onClick={() => navigate("/new-register")}>Novo registro</h2>
-              <h3 onClick={handleSignout}>Sair</h3>
+              <h3 onClick={() => setModalIsOpen(true)}>Sair</h3>
             </>
           ) : (
             <>
