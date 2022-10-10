@@ -8,6 +8,7 @@ import { backUrl } from "../utils/constants";
 
 export default function Modal({
   data,
+  setData,
   modalIsOpen,
   setModalIsOpen,
   config,
@@ -16,8 +17,24 @@ export default function Modal({
 }) {
   const [loading, setLoading] = useState();
   const navigate = useNavigate();
-  console.log(data);
-  function handleDeleteSpecie(e) {}
+
+  function handleDeleteSpecie(e) {
+    setLoading(true);
+
+    const response = axios.delete(`${backUrl}/specie/${data.id}`, config);
+
+    response
+      .then(() => {
+        setState(!state);
+        setLoading(false);
+        setModalIsOpen(false);
+      })
+      .catch((e) => {
+        setData({ ...data, key: "CONFLICT" });
+        alert(`Erro ${e.response.status}`);
+        setLoading(false);
+      });
+  }
 
   function handleDeleteRegister(e) {
     setLoading(true);
@@ -54,18 +71,36 @@ export default function Modal({
   return (
     <>
       <Body modalIsOpen={modalIsOpen}></Body>
-      <Container modalIsOpen={modalIsOpen}>
+      <Container modalIsOpen={modalIsOpen} error={data.key === "CONFLICT"}>
         <h1>
           {data.key === "SIGNOUT"
             ? "Você tem certeza que deseja se deslogar?"
-            : "Você tem certeza que deseja deletar este registro?"}
+            : data.key === "DELETE_R"
+            ? "Você tem certeza que deseja deletar este registro?"
+            : data.key === "DELETE_S"
+            ? "Você tem certeza que deseja deletar esta espécie?"
+            : data.key === "CONFLICT"
+            ? "Existem registros cadastrados com esta espécie, exclua primeiro todos estes registros."
+            : ""}
         </h1>
         {loading ? (
           <ThreeDots color="#3bb551" width={40} height={40} />
         ) : (
           <div className="buttons">
-            <button onClick={() => setModalIsOpen(false)} disabled={loading}>
-              Não, {data.key === "SIGNOUT" ? "voltar" : "cancelar"}
+            <button
+              onClick={() => {
+                setModalIsOpen(false);
+                setData({ ...data, key: null, id: null });
+              }}
+              disabled={loading}
+            >
+              {data.key === "SIGNOUT"
+                ? "Não, voltar"
+                : data.key === "DELETE_R" || data.key === "DELETE_S"
+                ? "Não, cancelar"
+                : data.key === "CONFLICT"
+                ? "Voltar"
+                : ""}
             </button>
             <button
               onClick={
@@ -146,6 +181,7 @@ const Container = styled.div`
     button:last-child {
       background-color: #3bb551;
       color: #ffffff;
+      display: ${({ error }) => (error ? "none" : "initial")};
     }
   }
 

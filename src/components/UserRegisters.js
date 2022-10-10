@@ -52,7 +52,7 @@ function ListLoaded(
               <div className="delete">
                 <FaTrashAlt
                   onClick={() => {
-                    setData({ ...data, id: register.id });
+                    setData({ ...data, key: "DELETE_R", id: register.id });
                     setModalIsOpen(true);
                   }}
                   size={20}
@@ -76,7 +76,7 @@ export default function UserRegisters() {
   const [list, setList] = useState();
   const [state, setState] = useState(true);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [data, setData] = useState({ key: "DELETE_R", id: null });
+  const [data, setData] = useState({ key: null, id: null });
 
   const config = {
     headers: {

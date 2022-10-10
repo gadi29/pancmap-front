@@ -10,42 +10,9 @@ import UserContext from "../contexts/UserContext";
 import TokenContext from "../contexts/TokenContext";
 
 import { backUrl } from "../utils/constants";
+import Modal from "./Modal";
 
-function ListLoaded(
-  token,
-  list,
-  superuser,
-  setLoading,
-  state,
-  setState,
-  navigate
-) {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-
-  function handleDelete(specieId) {
-    if (window.confirm("Tem certeza que deseja apagar esta espécie?")) {
-      setLoading(true);
-
-      const response = axios.delete(`${backUrl}/specie/${specieId}`, config);
-
-      response
-        .then(() => setState(!state))
-        .catch((e) => {
-          if (e.response.status === 409)
-            alert(
-              "Existem registros cadastrados para esta espécie, exclua primeiro os registros."
-            );
-          else alert(`Error ${e.response.status}`);
-
-          setLoading(false);
-        });
-    }
-  }
-
+function ListLoaded(data, setData, setModalIsOpen, list, superuser, navigate) {
   return (
     <>
       {list.map((specie) => (
@@ -64,7 +31,10 @@ function ListLoaded(
               </div>
               <div className="delete">
                 <FaTrashAlt
-                  onClick={() => handleDelete(specie.id)}
+                  onClick={() => {
+                    setData({ ...data, key: "DELETE_S", id: specie.id });
+                    setModalIsOpen(true);
+                  }}
                   size={20}
                   style={{ cursor: "pointer" }}
                 />
@@ -86,6 +56,14 @@ export default function ListSpecies() {
   const [loading, setLoading] = useState(true);
   const [list, setList] = useState();
   const [state, setState] = useState(true);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [data, setData] = useState({ key: null, id: null });
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
 
   const navigate = useNavigate();
 
@@ -103,33 +81,43 @@ export default function ListSpecies() {
   }, [state, user]);
 
   return (
-    <Body>
-      <Container>
-        <h1>Lista de espécies cadastradas no sistema</h1>
-        <Lista loading={loading} superuser={user.superuser}>
-          {loading ? (
-            <InfinitySpin color="#a82b7a" />
+    <>
+      <Modal
+        data={data}
+        setData={setData}
+        modalIsOpen={modalIsOpen}
+        setModalIsOpen={setModalIsOpen}
+        config={config}
+        state={state}
+        setState={setState}
+      />
+      <Body>
+        <Container>
+          <h1>Lista de espécies cadastradas no sistema</h1>
+          <Lista loading={loading} superuser={user.superuser}>
+            {loading ? (
+              <InfinitySpin color="#a82b7a" />
+            ) : (
+              ListLoaded(
+                data,
+                setData,
+                setModalIsOpen,
+                list,
+                user.superuser,
+                navigate
+              )
+            )}
+          </Lista>
+          {user.superuser ? (
+            <button onClick={() => navigate("/new-specie")}>
+              Cadastrar nova espécie
+            </button>
           ) : (
-            ListLoaded(
-              token,
-              list,
-              user.superuser,
-              setLoading,
-              state,
-              setState,
-              navigate
-            )
+            <></>
           )}
-        </Lista>
-        {user.superuser ? (
-          <button onClick={() => navigate("/new-specie")}>
-            Cadastrar nova espécie
-          </button>
-        ) : (
-          <></>
-        )}
-      </Container>
-    </Body>
+        </Container>
+      </Body>
+    </>
   );
 }
 
