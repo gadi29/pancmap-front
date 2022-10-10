@@ -91,14 +91,14 @@ export default function Header() {
                 onClick={() => setModalIsOpen(true)}
                 className="signout-icon"
               >
-                <GoSignOut size={23} style={{ cursor: "pointer" }} />
+                <GoSignOut size={25} style={{ cursor: "pointer" }} />
               </div>
             </>
           ) : (
             <>
               <h3 onClick={() => navigate("/login")}>Login</h3>
               <div onClick={() => navigate("/login")} className="signin-icon">
-                <GoSignIn size={23} style={{ cursor: "pointer" }} />
+                <GoSignIn size={25} style={{ cursor: "pointer" }} />
               </div>
               <h2 onClick={() => navigate("/signup")}>Cadastre-se</h2>
             </>
