@@ -77,10 +77,6 @@ export default function Header() {
             <></>
           )}
         </div>
-        <div className="center" onClick={() => navigate("/")}>
-          <img src={logo} alt="logo" />
-          <h1>Panc Map</h1>
-        </div>
         <div className="right">
           {user.name !== "Visitante" ? (
             <>
@@ -95,6 +91,12 @@ export default function Header() {
           )}
         </div>
       </Top>
+      <Logo>
+        <div onClick={() => navigate("/")}>
+          <img src={logo} alt="logo" />
+          <h1>Panc Map</h1>
+        </div>
+      </Logo>
     </>
   );
 }
@@ -114,24 +116,6 @@ const Top = styled.div`
   top: 0;
   left: 0;
   z-index: 5000;
-
-  .center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-
-    h1 {
-      font-size: 45px;
-      font-weight: 100;
-      color: #ffffff;
-    }
-
-    img {
-      width: 75px;
-      margin-right: 10px;
-    }
-  }
 
   .left,
   .right {
@@ -213,6 +197,60 @@ const Top = styled.div`
 
       h3:hover {
         font-size: 16px;
+      }
+    }
+  }
+`;
+
+const Logo = styled.div`
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5500;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    h1 {
+      font-size: 45px;
+      font-weight: 100;
+      color: #ffffff;
+    }
+
+    img {
+      width: 75px;
+      margin-right: 10px;
+    }
+  }
+
+  @media screen and (max-width: 900px) {
+    div {
+      h1 {
+        font-size: 40px;
+      }
+
+      img {
+        width: 70px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    div {
+      h1 {
+        display: none;
+      }
+
+      img {
+        margin-right: 0;
       }
     }
   }
