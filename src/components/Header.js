@@ -78,9 +78,9 @@ export default function Header() {
             <></>
           )}
         </div>
-        <div className="center" onClick={() => navigate("/")}>
-          <img src={logo} alt="logo" />
-          <h1>Panc Map</h1>
+        <div className="center">
+          <img onClick={() => navigate("/")} src={logo} alt="logo" />
+          <h1 onClick={() => navigate("/")}>Panc Map</h1>
         </div>
         <div className="right">
           {user.name !== "Visitante" ? (
@@ -130,17 +130,18 @@ const Top = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
 
     h1 {
       font-size: 41px;
       font-weight: 100;
       color: #ffffff;
+      cursor: pointer;
     }
 
     img {
       width: 75px;
       margin-right: 10px;
+      cursor: pointer;
     }
   }
 
