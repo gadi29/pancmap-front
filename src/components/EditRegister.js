@@ -94,7 +94,11 @@ export default function EditRegister() {
 
   return (
     <Body>
-      <Container showBar={showBar} loading={loadingSpecies || loadingRegister}>
+      <Container
+        showBar={showBar}
+        specieId={specie.id}
+        loading={loadingSpecies || loadingRegister}
+      >
         {loadingRegister || loadingSpecies ? (
           <ProgressBar
             width={150}
@@ -106,6 +110,8 @@ export default function EditRegister() {
           <form onSubmit={handleEdit}>
             <input
               type="text"
+              minLength={3}
+              maxLength={15}
               value={register.title}
               onChange={(e) =>
                 setRegister({ ...register, title: e.target.value })
@@ -116,6 +122,8 @@ export default function EditRegister() {
             ></input>
             <input
               type="text"
+              minLength={3}
+              maxLength={20}
               value={register.longitude}
               onChange={(e) =>
                 setRegister({ ...register, longitude: e.target.value })
@@ -126,6 +134,8 @@ export default function EditRegister() {
             ></input>
             <input
               type="text"
+              minLength={3}
+              maxLength={20}
               value={register.latitude}
               onChange={(e) =>
                 setRegister({ ...register, latitude: e.target.value })
@@ -136,6 +146,8 @@ export default function EditRegister() {
             ></input>
             <input
               type="text"
+              minLength={5}
+              maxLength={200}
               value={register.observations}
               onChange={(e) =>
                 setRegister({ ...register, observations: e.target.value })
@@ -261,8 +273,10 @@ const Container = styled.div`
     }
 
     .specie {
-      background-color: #ffffff;
-      border: 2px solid #5e053d;
+      background-color: ${({ specieId }) =>
+        specieId === null ? "#ffeded" : "#ffffff"};
+      border: 2px solid
+        ${({ specieId }) => (specieId === null ? "#d90000" : "#5e053d")};
       border-radius: 7px;
 
       width: 70%;
@@ -279,6 +293,7 @@ const Container = styled.div`
       h2 {
         cursor: default;
         font-size: 16px;
+        color: ${({ specieId }) => (specieId === null ? "gray" : "black")};
       }
 
       .list {
