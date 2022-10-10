@@ -101,7 +101,7 @@ export default function NewRegister() {
             onChange={(e) =>
               setRegister({ ...register, longitude: e.target.value })
             }
-            placeholder="Longitude (em UTM)"
+            placeholder="Longitude (em UTM e COM PONTO). Ex.: -48.57"
             disabled={loading}
             required
           ></input>
@@ -113,7 +113,7 @@ export default function NewRegister() {
             onChange={(e) =>
               setRegister({ ...register, latitude: e.target.value })
             }
-            placeholder="Latitude (em UTM)"
+            placeholder="Latitude (em UTM e COM PONTO). Ex.: -27.32"
             disabled={loading}
             required
           ></input>
