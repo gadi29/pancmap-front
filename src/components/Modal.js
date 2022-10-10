@@ -30,8 +30,11 @@ export default function Modal({
         setModalIsOpen(false);
       })
       .catch((e) => {
-        setData({ ...data, key: "CONFLICT" });
-        alert(`Erro ${e.response.status}`);
+        if (e.response.status === 409) {
+          setData({ ...data, key: "CONFLICT" });
+        } else {
+          setData({ ...data, key: "ERROR", id: e.response.status });
+        }
         setLoading(false);
       });
   }
@@ -48,9 +51,8 @@ export default function Modal({
         setModalIsOpen(false);
       })
       .catch((e) => {
-        alert(`Erro ${e.response.status}`);
+        setData({ ...data, key: "ERROR", id: e.response.status });
         setLoading(false);
-        setModalIsOpen(false);
       });
   }
 
@@ -63,7 +65,6 @@ export default function Modal({
       "user",
       JSON.stringify({ name: "Visitante", superuser: false })
     );
-    navigate("/");
     setLoading(false);
     window.location.reload();
   }
@@ -71,7 +72,10 @@ export default function Modal({
   return (
     <>
       <Body modalIsOpen={modalIsOpen}></Body>
-      <Container modalIsOpen={modalIsOpen} error={data.key === "CONFLICT"}>
+      <Container
+        modalIsOpen={modalIsOpen}
+        error={data.key === "CONFLICT" || data.key === "ERROR"}
+      >
         <h1>
           {data.key === "SIGNOUT"
             ? "Você tem certeza que deseja se deslogar?"
@@ -81,6 +85,8 @@ export default function Modal({
             ? "Você tem certeza que deseja deletar esta espécie?"
             : data.key === "CONFLICT"
             ? "Existem registros cadastrados com esta espécie, exclua primeiro todos estes registros."
+            : data.key === "ERROR"
+            ? `Erro ${data.id}`
             : ""}
         </h1>
         {loading ? (
@@ -98,7 +104,7 @@ export default function Modal({
                 ? "Não, voltar"
                 : data.key === "DELETE_R" || data.key === "DELETE_S"
                 ? "Não, cancelar"
-                : data.key === "CONFLICT"
+                : data.key === "CONFLICT" || data.key === "ERROR"
                 ? "Voltar"
                 : ""}
             </button>
@@ -162,7 +168,7 @@ const Container = styled.div`
   .buttons {
     width: 320px;
     display: flex;
-    justify-content: space-around;
+    justify-content: ${({ error }) => (error ? "center" : "space-around")};
 
     button {
       font-size: 18px;
@@ -176,6 +182,7 @@ const Container = styled.div`
     button:first-child {
       background-color: #ffffff;
       color: #3bb551;
+      margin: auto;
     }
 
     button:last-child {
