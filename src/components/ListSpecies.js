@@ -222,6 +222,7 @@ const Lista = styled.div`
 
     h2 {
       font-style: italic;
+      text-align: ${({ superuser }) => (superuser ? "initial" : "center")};
       font-size: 20px;
       font-weight: 400;
       padding: 0;
@@ -276,7 +277,6 @@ const Lista = styled.div`
     div {
       h2 {
         padding-right: 20px;
-        text-align: center;
       }
       .icons {
         width: 23%;
