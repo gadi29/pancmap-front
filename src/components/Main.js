@@ -63,7 +63,10 @@ export default function Main() {
                     {register.specie.cientificName}
                   </h4>
                 </div>
-                <h3>Obs.: {register.observations}</h3>
+                <div className="main">
+                  <h3>Obs.: {register.observations}</h3>
+                  <h5>Registrado por: {register.user.name}</h5>
+                </div>
               </Popup>
             </Marker>
           ))
@@ -140,6 +143,18 @@ const Map = styled.div`
       margin-top: 3px;
       margin-bottom: 7px;
       cursor: pointer;
+    }
+  }
+
+  .main {
+    display: flex;
+    flex-direction: column;
+
+    h5 {
+      font-size: 10px;
+      font-style: italic;
+      margin-top: 8px;
+      align-self: center;
     }
   }
 
