@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { GoSignIn, GoSignOut } from "react-icons/go";
 
 import UserContext from "../contexts/UserContext";
 
@@ -77,26 +78,33 @@ export default function Header() {
             <></>
           )}
         </div>
+        <div className="center" onClick={() => navigate("/")}>
+          <img src={logo} alt="logo" />
+          <h1>Panc Map</h1>
+        </div>
         <div className="right">
           {user.name !== "Visitante" ? (
             <>
               <h2 onClick={() => navigate("/new-register")}>Novo registro</h2>
               <h3 onClick={() => setModalIsOpen(true)}>Sair</h3>
+              <div
+                onClick={() => setModalIsOpen(true)}
+                className="signout-icon"
+              >
+                <GoSignOut size={23} style={{ cursor: "pointer" }} />
+              </div>
             </>
           ) : (
             <>
               <h3 onClick={() => navigate("/login")}>Login</h3>
+              <div onClick={() => navigate("/login")} className="signin-icon">
+                <GoSignIn size={23} style={{ cursor: "pointer" }} />
+              </div>
               <h2 onClick={() => navigate("/signup")}>Cadastre-se</h2>
             </>
           )}
         </div>
       </Top>
-      <Logo>
-        <div onClick={() => navigate("/")}>
-          <img src={logo} alt="logo" />
-          <h1>Panc Map</h1>
-        </div>
-      </Logo>
     </>
   );
 }
@@ -117,8 +125,28 @@ const Top = styled.div`
   left: 0;
   z-index: 5000;
 
+  .center {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    h1 {
+      font-size: 41px;
+      font-weight: 100;
+      color: #ffffff;
+    }
+
+    img {
+      width: 75px;
+      margin-right: 10px;
+    }
+  }
+
   .left,
   .right {
+    width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
@@ -142,8 +170,21 @@ const Top = styled.div`
       font-size: 19px;
       font-weight: 600;
     }
+  }
+
+  .left {
+    justify-content: flex-start;
 
     .lateral {
+      display: none;
+    }
+  }
+
+  .right {
+    justify-content: flex-end;
+
+    .signin-icon,
+    .signout-icon {
       display: none;
     }
   }
@@ -151,7 +192,8 @@ const Top = styled.div`
   @media screen and (max-width: 900px) {
     .center {
       h1 {
-        font-size: 40px;
+        font-size: 34px;
+        text-align: center;
       }
 
       img {
@@ -178,79 +220,29 @@ const Top = styled.div`
     }
   }
 
-  @media screen and (max-width: 480px) {
+  @media screen and (max-width: 780px) {
     .center {
       h1 {
         display: none;
       }
-
       img {
         margin-right: 0;
-      }
-    }
-
-    .left,
-    .right {
-      h3 {
-        font-size: 16px;
-      }
-
-      h3:hover {
-        font-size: 16px;
-      }
-    }
-  }
-`;
-
-const Logo = styled.div`
-  width: 100%;
-  height: 80px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 5500;
-  position: fixed;
-  top: 0;
-  left: 0;
-
-  div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-
-    h1 {
-      font-size: 45px;
-      font-weight: 100;
-      color: #ffffff;
-    }
-
-    img {
-      width: 75px;
-      margin-right: 10px;
-    }
-  }
-
-  @media screen and (max-width: 900px) {
-    div {
-      h1 {
-        font-size: 40px;
-      }
-
-      img {
-        width: 70px;
       }
     }
   }
 
   @media screen and (max-width: 480px) {
-    div {
-      h1 {
+    .left,
+    .right {
+      h3 {
         display: none;
       }
+    }
 
-      img {
-        margin-right: 0;
+    .right {
+      .signin-icon,
+      .signout-icon {
+        display: flex;
       }
     }
   }
