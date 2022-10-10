@@ -2,14 +2,40 @@ import { useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 
-export default function Modal({ data, modalIsOpen, setModalIsOpen }) {
+import { backUrl } from "../utils/constants";
+
+export default function Modal({
+  data,
+  modalIsOpen,
+  setModalIsOpen,
+  config,
+  state,
+  setState,
+}) {
   const [loading, setLoading] = useState();
   const navigate = useNavigate();
-
+  console.log(data);
   function handleDeleteSpecie(e) {}
 
-  function handleDeleteRegister(e) {}
+  function handleDeleteRegister(e) {
+    setLoading(true);
+
+    const response = axios.delete(`${backUrl}/register/${data.id}`, config);
+
+    response
+      .then(() => {
+        setState(!state);
+        setLoading(false);
+        setModalIsOpen(false);
+      })
+      .catch((e) => {
+        alert(`Erro ${e.response.status}`);
+        setLoading(false);
+        setModalIsOpen(false);
+      });
+  }
 
   function handleSignout(e) {
     e.preventDefault();
@@ -35,7 +61,7 @@ export default function Modal({ data, modalIsOpen, setModalIsOpen }) {
             : "Você tem certeza que deseja deletar este registro?"}
         </h1>
         {loading ? (
-          <ThreeDots color="#1877F2" width={40} height={40} />
+          <ThreeDots color="#3bb551" width={40} height={40} />
         ) : (
           <div className="buttons">
             <button onClick={() => setModalIsOpen(false)} disabled={loading}>

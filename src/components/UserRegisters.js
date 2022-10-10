@@ -11,40 +11,16 @@ import UserContext from "../contexts/UserContext";
 import TokenContext from "../contexts/TokenContext";
 
 import { backUrl } from "../utils/constants";
+import Modal from "./Modal";
 
 function ListLoaded(
-  token,
+  setModalIsOpen,
   setPosition,
   list,
-  setLoading,
-  state,
-  setState,
-  navigate
+  navigate,
+  data,
+  setData
 ) {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-
-  function handleDelete(registerId) {
-    if (window.confirm("Tem certeza que deseja apagar este registro?")) {
-      setLoading(true);
-
-      const response = axios.delete(
-        `${backUrl}/register/${registerId}`,
-        config
-      );
-
-      response
-        .then(() => setState(!state))
-        .catch((e) => {
-          alert(`Error ${e.response.status}`);
-          setLoading(false);
-        });
-    }
-  }
-
   return (
     <>
       {list.length === 0 ? (
@@ -75,7 +51,10 @@ function ListLoaded(
               </div>
               <div className="delete">
                 <FaTrashAlt
-                  onClick={() => handleDelete(register.id)}
+                  onClick={() => {
+                    setData({ ...data, id: register.id });
+                    setModalIsOpen(true);
+                  }}
                   size={20}
                   style={{ cursor: "pointer" }}
                 />
@@ -96,6 +75,14 @@ export default function UserRegisters() {
   const [loading, setLoading] = useState(true);
   const [list, setList] = useState();
   const [state, setState] = useState(true);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [data, setData] = useState({ key: "DELETE_R", id: null });
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
 
   const navigate = useNavigate();
 
@@ -119,27 +106,38 @@ export default function UserRegisters() {
   }, [state, user]);
 
   return (
-    <Body>
-      <Container>
-        <h1>Lista de seus registros</h1>
-        <Lista loading={loading}>
-          {loading ? (
-            <InfinitySpin color="#a82b7a" />
-          ) : (
-            ListLoaded(
-              token,
-              setPosition,
-              list,
-              setLoading,
-              state,
-              setState,
-              navigate
-            )
-          )}
-        </Lista>
-        <button onClick={() => navigate("/new-register")}>Novo Registro</button>
-      </Container>
-    </Body>
+    <>
+      <Modal
+        data={data}
+        modalIsOpen={modalIsOpen}
+        setModalIsOpen={setModalIsOpen}
+        config={config}
+        state={state}
+        setState={setState}
+      />
+      <Body>
+        <Container>
+          <h1>Lista de seus registros</h1>
+          <Lista loading={loading}>
+            {loading ? (
+              <InfinitySpin color="#a82b7a" />
+            ) : (
+              ListLoaded(
+                setModalIsOpen,
+                setPosition,
+                list,
+                navigate,
+                data,
+                setData
+              )
+            )}
+          </Lista>
+          <button onClick={() => navigate("/new-register")}>
+            Novo Registro
+          </button>
+        </Container>
+      </Body>
+    </>
   );
 }
 
