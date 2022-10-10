@@ -61,6 +61,7 @@ export default function NewSpecie() {
           <input
             type="text"
             minLength={3}
+            maxLength={30}
             value={specie.cientificName}
             onChange={(e) =>
               setSpecie({ ...specie, cientificName: e.target.value })
@@ -149,6 +150,7 @@ export default function NewSpecie() {
           ></input>
           <input
             type="url"
+            pattern="^https?://(?:[a-z0-9\-]+\.)+[a-z]{2,6}(?:/[^/#?]+)+\.(?:jpg|gif|png)$"
             value={specie.leafPicturePath}
             onChange={(e) =>
               setSpecie({ ...specie, leafPicturePath: e.target.value })
@@ -159,6 +161,7 @@ export default function NewSpecie() {
           ></input>
           <input
             type="url"
+            pattern="^https?://(?:[a-z0-9\-]+\.)+[a-z]{2,6}(?:/[^/#?]+)+\.(?:jpg|gif|png)$"
             value={specie.flowerPicturePath}
             onChange={(e) =>
               setSpecie({ ...specie, flowerPicturePath: e.target.value })
@@ -169,6 +172,7 @@ export default function NewSpecie() {
           ></input>
           <input
             type="url"
+            pattern="^https?://(?:[a-z0-9\-]+\.)+[a-z]{2,6}(?:/[^/#?]+)+\.(?:jpg|gif|png)$"
             value={specie.fruitPicturePath}
             onChange={(e) =>
               setSpecie({ ...specie, fruitPicturePath: e.target.value })
@@ -178,6 +182,7 @@ export default function NewSpecie() {
           ></input>
           <input
             type="url"
+            pattern="^https?://(?:[a-z0-9\-]+\.)+[a-z]{2,6}(?:/[^/#?]+)+\.(?:jpg|gif|png)$"
             value={specie.undergroundPicturePath}
             onChange={(e) =>
               setSpecie({ ...specie, undergroundPicturePath: e.target.value })

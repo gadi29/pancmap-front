@@ -204,6 +204,11 @@ const Container = styled.div`
       padding-left: 10px;
     }
 
+    input:invalid {
+      background-color: #ffeded;
+      border: 2px solid #d90000;
+    }
+
     button {
       background-color: #a82b7a;
       border-radius: 5px;
