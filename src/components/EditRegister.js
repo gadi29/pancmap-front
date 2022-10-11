@@ -23,8 +23,8 @@ export default function EditRegister() {
   });
   const [register, setRegister] = useState({
     title: "",
-    latitude: "",
-    longitude: "",
+    latitude: 0,
+    longitude: 0,
     observations: "",
   });
 
@@ -121,26 +121,28 @@ export default function EditRegister() {
               required
             ></input>
             <input
-              type="text"
-              minLength={3}
-              maxLength={20}
-              value={register.longitude}
+              type="number"
+              min={-85}
+              max={85}
+              step={0.00000000001}
+              value={register.latitude}
               onChange={(e) =>
-                setRegister({ ...register, longitude: e.target.value })
+                setRegister({ ...register, latitude: Number(e.target.value) })
               }
-              placeholder="Longitude (em UTM e COM PONTO). Ex.: -48.57"
+              placeholder="Latitude (em UTM)"
               disabled={loadingSubmit}
               required
             ></input>
             <input
-              type="text"
-              minLength={3}
-              maxLength={20}
-              value={register.latitude}
+              type="number"
+              min={-180}
+              max={180}
+              step={0.00000000001}
+              value={register.longitude}
               onChange={(e) =>
-                setRegister({ ...register, latitude: e.target.value })
+                setRegister({ ...register, longitude: Number(e.target.value) })
               }
-              placeholder="Latitude (em UTM e COM PONTO). Ex.: -27.32"
+              placeholder="Longitude (em UTM)"
               disabled={loadingSubmit}
               required
             ></input>
