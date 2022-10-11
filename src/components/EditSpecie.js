@@ -131,7 +131,7 @@ export default function EditSpecie() {
             <input
               type="text"
               minLength={10}
-              maxLength={500}
+              maxLength={1000}
               value={specie.generalCharacteristics}
               onChange={(e) =>
                 setSpecie({ ...specie, generalCharacteristics: e.target.value })
@@ -142,7 +142,7 @@ export default function EditSpecie() {
             ></input>
             <input
               type="text"
-              maxLength={250}
+              maxLength={500}
               value={specie.curiosities}
               onChange={(e) =>
                 setSpecie({ ...specie, curiosities: e.target.value })
@@ -153,7 +153,7 @@ export default function EditSpecie() {
             <input
               type="text"
               minLength={10}
-              maxLength={200}
+              maxLength={500}
               value={specie.leafMorfology}
               onChange={(e) =>
                 setSpecie({ ...specie, leafMorfology: e.target.value })
@@ -165,7 +165,7 @@ export default function EditSpecie() {
             <input
               type="text"
               minLength={10}
-              maxLength={200}
+              maxLength={500}
               value={specie.flowerMorfology}
               onChange={(e) =>
                 setSpecie({ ...specie, flowerMorfology: e.target.value })
@@ -176,7 +176,7 @@ export default function EditSpecie() {
             ></input>
             <input
               type="text"
-              maxLength={200}
+              maxLength={500}
               value={specie.fruitMorfology}
               onChange={(e) =>
                 setSpecie({ ...specie, fruitMorfology: e.target.value })
@@ -186,7 +186,7 @@ export default function EditSpecie() {
             ></input>
             <input
               type="text"
-              maxLength={200}
+              maxLength={500}
               value={specie.undergroundMorfology}
               onChange={(e) =>
                 setSpecie({ ...specie, undergroundMorfology: e.target.value })
@@ -197,7 +197,7 @@ export default function EditSpecie() {
             <input
               type="text"
               minLength={3}
-              maxLength={100}
+              maxLength={200}
               value={specie.edibleParts}
               onChange={(e) =>
                 setSpecie({ ...specie, edibleParts: e.target.value })

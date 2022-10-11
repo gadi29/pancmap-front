@@ -84,7 +84,7 @@ export default function NewRegister() {
           <input
             type="text"
             minLength={3}
-            maxLength={15}
+            maxLength={200}
             value={register.title}
             onChange={(e) =>
               setRegister({ ...register, title: e.target.value })
@@ -122,7 +122,7 @@ export default function NewRegister() {
           <input
             type="text"
             minLength={5}
-            maxLength={200}
+            maxLength={1000}
             value={register.observations}
             onChange={(e) =>
               setRegister({ ...register, observations: e.target.value })
