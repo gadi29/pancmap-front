@@ -26,5 +26,5 @@ jobs:
         run: docker system prune -a
       - name: Build process
         run: docker-compose build
-      -name: Run app docker compose
+      - name: Run app docker compose
         run: docker-compose down -v && docker-compose up -d
