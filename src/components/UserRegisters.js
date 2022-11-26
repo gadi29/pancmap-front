@@ -1,16 +1,16 @@
 import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import axios from "axios";
 import { FaTrashAlt } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
 import { InfinitySpin } from "react-loader-spinner";
+
+import api from "../services/api";
 
 import PositionContext from "../contexts/PositionContext";
 import UserContext from "../contexts/UserContext";
 import TokenContext from "../contexts/TokenContext";
 
-import { backUrl } from "../utils/constants";
 import Modal from "./Modal";
 
 function ListLoaded(
@@ -93,7 +93,7 @@ export default function UserRegisters() {
   }, [user]);
 
   useEffect(() => {
-    const response = axios.get(`${backUrl}/myregisters/${user.id}`);
+    const response = api.get(`/myregisters/${user.id}`);
 
     response
       .then((r) => {

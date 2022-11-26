@@ -1,12 +1,12 @@
-import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { ThreeDots } from "react-loader-spinner";
 
+import api from "../services/api";
+
 import UserContext from "../contexts/UserContext";
 import TokenContext from "../contexts/TokenContext";
-import { backUrl } from "../utils/constants";
 
 export default function NewSpecie() {
   const { user } = useContext(UserContext);
@@ -46,7 +46,7 @@ export default function NewSpecie() {
     setLoading(true);
 
     try {
-      await axios.post(`${backUrl}/specie`, { ...specie }, config);
+      await api.post(`/specie`, { ...specie }, config);
       setLoading(false);
       navigate("/species");
     } catch (error) {

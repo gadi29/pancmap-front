@@ -1,15 +1,15 @@
 import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import axios from "axios";
 import { FaTrashAlt } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
 import { InfinitySpin } from "react-loader-spinner";
 
+import api from "../services/api";
+
 import UserContext from "../contexts/UserContext";
 import TokenContext from "../contexts/TokenContext";
 
-import { backUrl } from "../utils/constants";
 import Modal from "./Modal";
 
 function ListLoaded(data, setData, setModalIsOpen, list, superuser, navigate) {
@@ -68,7 +68,7 @@ export default function ListSpecies() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const response = axios.get(`${backUrl}/species`);
+    const response = api.get(`/species`);
 
     response
       .then((r) => {

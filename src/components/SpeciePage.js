@@ -1,12 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
 import styled from "styled-components";
 import { ProgressBar } from "react-loader-spinner";
 
-import PositionContext from "../contexts/PositionContext";
+import api from "../services/api";
 
-import { backUrl } from "../utils/constants";
+import PositionContext from "../contexts/PositionContext";
 
 function SpeciePageLoaded(specie, registers, setPosition, navigate) {
   return (
@@ -111,7 +110,7 @@ export default function SpeciePage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const response = axios.get(`${backUrl}/specie/${specieId}`);
+    const response = api.get(`/specie/${specieId}`);
 
     response
       .then((r) => {
@@ -124,7 +123,7 @@ export default function SpeciePage() {
   }, [specieId]);
 
   useEffect(() => {
-    const response = axios.get(`${backUrl}/registers/${specieId}`);
+    const response = api.get(`/registers/${specieId}`);
 
     response
       .then((r) => {

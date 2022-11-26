@@ -1,13 +1,13 @@
-import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { FaChevronCircleDown, FaChevronCircleUp } from "react-icons/fa";
 import { ThreeDots } from "react-loader-spinner";
 
+import api from "../services/api";
+
 import UserContext from "../contexts/UserContext";
 import TokenContext from "../contexts/TokenContext";
-import { backUrl } from "../utils/constants";
 
 export default function NewRegister() {
   const { user } = useContext(UserContext);
@@ -52,7 +52,7 @@ export default function NewRegister() {
   }, []);
 
   useEffect(() => {
-    const response = axios.get(`${backUrl}/species`);
+    const response = api.get(`/species`);
 
     response
       .then((r) => {
@@ -69,7 +69,7 @@ export default function NewRegister() {
     setLoading(true);
 
     try {
-      await axios.post(`${backUrl}/register`, { ...register }, config);
+      await api.post(`/register`, { ...register }, config);
       navigate("/user-registers");
     } catch (error) {
       alert(`Campo obrigatório não preenchido, ou preenchido incorretamente`);

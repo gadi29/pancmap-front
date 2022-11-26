@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import styled from "styled-components";
 import { ThreeDots } from "react-loader-spinner";
 
-import { backUrl } from "../utils/constants";
+import api from "../services/api";
 
 export default function SignUp() {
   const [user, setUser] = useState({
@@ -21,7 +20,7 @@ export default function SignUp() {
 
     setLoading(true);
     try {
-      await axios.post(`${backUrl}/signup`, {
+      await api.post(`/signup`, {
         ...user,
       });
 

@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import axios from "axios";
 import { FaChevronCircleDown, FaChevronCircleUp } from "react-icons/fa";
 import { ThreeDots } from "react-loader-spinner";
 import { ProgressBar } from "react-loader-spinner";
 
+import api from "../services/api";
+
 import TokenContext from "../contexts/TokenContext";
-import { backUrl } from "../utils/constants";
 
 export default function EditRegister() {
   const { token } = useContext(TokenContext);
@@ -37,7 +37,7 @@ export default function EditRegister() {
   };
 
   useEffect(() => {
-    const response = axios.get(`${backUrl}/register/${registerId}`);
+    const response = api.get(`/register/${registerId}`);
 
     response
       .then((r) => {
@@ -56,7 +56,7 @@ export default function EditRegister() {
   }, [registerId]);
 
   useEffect(() => {
-    const response = axios.get(`${backUrl}/species`);
+    const response = api.get(`/species`);
 
     response
       .then((r) => {
@@ -73,8 +73,8 @@ export default function EditRegister() {
 
     setLoadingSubmit(true);
     try {
-      await axios.put(
-        `${backUrl}/register/${registerId}`,
+      await api.put(
+        `/register/${registerId}`,
         {
           title: register.title,
           latitude: register.latitude,

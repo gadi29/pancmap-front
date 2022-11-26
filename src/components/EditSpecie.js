@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import axios from "axios";
 import { ThreeDots } from "react-loader-spinner";
 import { ProgressBar } from "react-loader-spinner";
 
+import api from "../services/api";
+
 import UserContext from "../contexts/UserContext";
 import TokenContext from "../contexts/TokenContext";
-import { backUrl } from "../utils/constants";
 
 export default function EditSpecie() {
   const { user } = useContext(UserContext);
@@ -61,7 +61,7 @@ export default function EditSpecie() {
   }, [user]);
 
   useEffect(() => {
-    const response = axios.get(`${backUrl}/specie/${specieId}`);
+    const response = api.get(`/specie/${specieId}`);
 
     response
       .then((r) => {
@@ -78,8 +78,8 @@ export default function EditSpecie() {
     setLoadingSubmit(true);
 
     try {
-      await axios.put(
-        `${backUrl}/specie/${specieId}`,
+      await api.put(
+        `/specie/${specieId}`,
         {
           cientificName: specie.cientificName,
           generalCharacteristics: specie.generalCharacteristics,

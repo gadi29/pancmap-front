@@ -2,15 +2,15 @@ import { useContext, useEffect, useState } from "react";
 import { MapContainer, TileLayer, Popup, Marker } from "react-leaflet";
 import { Icon } from "leaflet";
 import styled from "styled-components";
-import axios from "axios";
 import { AiOutlineAim } from "react-icons/ai";
 import { ProgressBar } from "react-loader-spinner";
+
+import api from "../services/api";
 
 import PositionContext from "../contexts/PositionContext";
 
 import "../../node_modules/leaflet/dist/leaflet.css";
 import leaf from "../assets/images/leaf-svgrepo-com.svg";
-import { backUrl } from "../utils/constants";
 import { useNavigate } from "react-router-dom";
 
 export default function Main() {
@@ -29,7 +29,7 @@ export default function Main() {
 
   useEffect(() => {
     setLoading(true);
-    const response = axios.get(`${backUrl}/registers`);
+    const response = api.get(`/registers`);
 
     response
       .then((r) => {

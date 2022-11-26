@@ -1,11 +1,11 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import styled from "styled-components";
 import { ThreeDots } from "react-loader-spinner";
 
+import api from "../services/api";
+
 import TokenContext from "../contexts/TokenContext";
-import { backUrl } from "../utils/constants";
 
 export default function SignIn() {
   const [user, setUser] = useState({ email: "", password: "" });
@@ -18,7 +18,7 @@ export default function SignIn() {
 
     setLoading(true);
     try {
-      const { data } = await axios.post(`${backUrl}/signin`, {
+      const { data } = await api.post(`/signin`, {
         ...user,
       });
       localStorage.setItem("token", JSON.stringify(data.token));

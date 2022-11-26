@@ -2,9 +2,8 @@ import { useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import axios from "axios";
 
-import { backUrl } from "../utils/constants";
+import api from "../services/api";
 
 export default function Modal({
   data,
@@ -21,7 +20,7 @@ export default function Modal({
   function handleDeleteSpecie(e) {
     setLoading(true);
 
-    const response = axios.delete(`${backUrl}/specie/${data.id}`, config);
+    const response = api.delete(`/specie/${data.id}`, config);
 
     response
       .then(() => {
@@ -42,7 +41,7 @@ export default function Modal({
   function handleDeleteRegister(e) {
     setLoading(true);
 
-    const response = axios.delete(`${backUrl}/register/${data.id}`, config);
+    const response = api.delete(`/register/${data.id}`, config);
 
     response
       .then(() => {
